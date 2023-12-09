@@ -24,7 +24,8 @@
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.customafk.ie307frontend"
     },
     "experiments": {
       "tsconfigPaths": true
