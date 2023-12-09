@@ -91,10 +91,10 @@ const signUpAuthAction = () => {
 }
 const logOutAuthAction = () => {
   const resetAuth = useResetRecoilState(authState)
-  const onLogOutAction = () => {
+  const onLogOutAction = async () => {
+    await LocalStorage.removeAccessTokenSecureStore()
+    await LocalStorage.removeRefreshTokenSecureStore()
     resetAuth()
-    LocalStorage.removeAccessTokenSecureStore()
-    LocalStorage.removeRefreshTokenSecureStore()
   }
   return { onLogOutAction }
 }
