@@ -2,7 +2,7 @@ name: Build file apk
 on:
   pull_request:
     branches:
-      - develop
+      - development
     types:
       - closed
 
