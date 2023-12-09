@@ -22,6 +22,7 @@
     "buffer": "^6.0.3",
     "dayjs": "^1.11.10",
     "expo": "~49.0.15",
+    "expo-dev-client": "~2.4.12",
     "expo-file-system": "^15.6.0",
     "expo-image-picker": "^14.5.0",
     "expo-linear-gradient": "^12.5.0",
