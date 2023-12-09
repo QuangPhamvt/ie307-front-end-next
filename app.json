@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.customafk.ie307frontend"
     },
     "android": {
       "adaptiveIcon": {

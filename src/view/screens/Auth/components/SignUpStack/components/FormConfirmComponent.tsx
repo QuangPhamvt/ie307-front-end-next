@@ -4,11 +4,14 @@ import { StackNavigationProp } from "@react-navigation/stack"
 import { View, Text, TouchableOpacity } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 import { SignUpStackParamList } from "~/src/view/type"
+import { useRecoilState } from "recoil"
+import { signUpFormState } from "../store/atom"
 const FormConfirmComponent: React.FC = () => {
   const [isPressInConfirmField, setIsPressInConfirmField] = React.useState<boolean>(false)
   const navigation = useNavigation<StackNavigationProp<SignUpStackParamList, "EmailStack">>()
+  const [getSignUpForm, setSignUpForm] = useRecoilState(signUpFormState)
   return (
-    <View className="flex grow space-y-4 ">
+    <View className="flex space-y-4 grow ">
       <Text className="text-2xl font-bold">Enter the confirmation code </Text>
       <Text className="font-medium text-gray-700">
         To confirm your account, enter the 6-digit code we sent to customafk@gmail.com{" "}
@@ -19,10 +22,13 @@ const FormConfirmComponent: React.FC = () => {
         } p-4`}
       >
         <TextInput
+          keyboardType="number-pad"
+          value={getSignUpForm?.code_digit || ""}
           placeholder="Confirmation Code"
           className="w-full"
           onFocus={() => setIsPressInConfirmField(true)}
           onBlur={() => setIsPressInConfirmField(false)}
+          onChangeText={(code_digit) => setSignUpForm((preState) => ({ ...preState, code_digit }))}
         />
       </View>
       <TouchableOpacity
