@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ie307-front-end-next",
-    "slug": "ie307-front-end-next",
+    "slug": "ie307-front-end",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "experiments": {
       "tsconfigPaths": true
@@ -35,6 +40,18 @@
           "cameraPermission": "Allow APP to access your camera"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "59939f0c-6e10-4c6e-8bde-ab708b1e04a9"
+      }
+    },
+    "owner": "customafk",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/59939f0c-6e10-4c6e-8bde-ab708b1e04a9"
+    }
   }
 }
