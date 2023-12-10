@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD032 MD033-->
-# 🔥 **CustomAFK GitHub Project IE307 **
+# 🔥 **CustomAFK GitHub Project IE307**
 
 <p align="center">
   <br>

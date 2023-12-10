@@ -14,6 +14,7 @@ import {
   SearchTabBarIconComponent,
   UploadTabBarIconComponent,
 } from "./components/TabBarIcon"
+import HeaderMainTabComponent from "./components/HeaderMainTabComponent"
 
 const BottomTab = createBottomTabNavigator<MainBottomTabParamList>()
 const MainView: React.FC = () => {
@@ -38,7 +39,14 @@ const MainView: React.FC = () => {
           },
         })}
       >
-        <BottomTab.Screen name="HomeView" component={MainTab} />
+        <BottomTab.Screen
+          options={{
+            headerShown: true,
+            header: HeaderMainTabComponent,
+          }}
+          name="HomeView"
+          component={MainTab}
+        />
         <BottomTab.Screen name="SearchView" component={SearchTab} />
         <BottomTab.Screen name="UploadView" component={UploadTab} />
         <BottomTab.Screen name="NotificationView" component={NotificationTab} />
