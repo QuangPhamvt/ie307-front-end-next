@@ -29,7 +29,7 @@ repository:
   has_downloads: true
 
   # Updates the default branch for this repository.
-  default_branch: master
+  default_branch: development
 
   # Either `true` to allow squash-merging pull requests, or `false` to prevent
   # squash-merging.
@@ -73,32 +73,32 @@ labels:
   - name: eas-build
     # Provide a new name to rename an existing label
     color: "#EB94FC"
-    new_name: Pull request label to create builds with EAS Build.
+    description: Pull request label to create builds with EAS Build.
 
   - name: enhancement
     # Provide a new name to rename an existing label
     color: "#a2eeef"
-    new_name: New feature or request
+    description: New feature or request
 
   - name: help wanted
     # Provide a new name to rename an existing label
     color: "#008672"
-    new_name: Extra attention is needed
+    description: Extra attention is needed
 
   - name: invalid
     # Provide a new name to rename an existing label
     color: "#e4e669"
-    new_name: This doesn't seem right
+    description: This doesn't seem right
 
   - name: question
     # Provide a new name to rename an existing label
     color: "#d876e3"
-    new_name: Further information is requested
+    description: Further information is requested
 
   - name: wontfix
     # Provide a new name to rename an existing label
     color: "#ffffff"
-    new_name: This will not be worked on
+    description: This will not be worked on
 
 # Milestones: define milestones for Issues and Pull Requests
 milestones:

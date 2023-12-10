@@ -1,8 +1,7 @@
 import React from "react"
-import { Modal, View, Text, TouchableOpacity, Alert } from "react-native"
+import { Modal, View, Text, TouchableOpacity } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { AntDesign, Feather, Octicons } from "@expo/vector-icons"
-import authAction from "~/src/view/screens/Auth/store/authAction"
+import { Feather, Octicons } from "@expo/vector-icons"
 import { showModalEditAvatarState } from "../store/atom"
 
 export const ModalEditAvatar: React.FC = () => {
