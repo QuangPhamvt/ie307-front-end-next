@@ -1,14 +1,16 @@
 import React from "react"
-import { Text, View } from "react-native"
+import { Text, View, ScrollView } from "react-native"
 import { HeaderComponent } from "./components/HeaderComponent"
 import { ModalSettingComponent } from "./components/ModalSettingComponent"
+import MainComponent from "./components/MainComponent"
 
 const ProfileTab: React.FC = () => {
   return (
-    <View className="flex h-full bg-gray-300">
+    <ScrollView className="flex h-full bg-white">
       <ModalSettingComponent />
       <HeaderComponent />
-    </View>
+      <MainComponent />
+    </ScrollView>
   )
 }
 export default ProfileTab

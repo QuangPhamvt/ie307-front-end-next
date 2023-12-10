@@ -6,6 +6,10 @@ import { LocalStorage, checkIsMail, encodeJWT } from "~/src/utilities"
 import { sentEmailVerifyState, signUpFormState } from "../components/SignUpStack/store/atom"
 import { Alert } from "react-native"
 import React from "react"
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types"
+import { RootNativeStackParamList } from "~/src/view/type"
+import { showModalSettingState } from "../../Main/components/ProfileTab/store/atom"
 
 const logInAction = () => {
   const setAuthState = useSetRecoilState(authState)
@@ -92,9 +96,13 @@ const signUpAuthAction = () => {
 const logOutAuthAction = () => {
   const resetAuth = useResetRecoilState(authState)
   const onLogOutAction = async () => {
-    await LocalStorage.removeAccessTokenSecureStore()
-    await LocalStorage.removeRefreshTokenSecureStore()
-    resetAuth()
+    try {
+      resetAuth()
+      await LocalStorage.removeAccessTokenSecureStore()
+      await LocalStorage.removeRefreshTokenSecureStore()
+    } catch (error) {
+      console.error(error)
+    }
   }
   return { onLogOutAction }
 }
