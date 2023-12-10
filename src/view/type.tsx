@@ -5,6 +5,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 export type RootNativeStackParamList = {
   AuthView: NavigatorScreenParams<AuthStackParamList>
   MainView: NavigatorScreenParams<MainBottomTabParamList>
+  EditProfileView: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
