@@ -3,7 +3,7 @@ import { Text } from "react-native"
 import "react-native-gesture-handler"
 import { RecoilRoot } from "recoil"
 import { NavigationContainer } from "@react-navigation/native"
-import Screens from "./src/view/screens"
+import { Screens } from "./src"
 
 export default function App() {
   return (

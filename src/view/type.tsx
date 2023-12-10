@@ -5,10 +5,11 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 export type RootNativeStackParamList = {
   AuthView: NavigatorScreenParams<AuthStackParamList>
   MainView: NavigatorScreenParams<MainBottomTabParamList>
+  EditProfileView: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
-  SignUpStack: undefined
+  SignUpStack: NavigatorScreenParams<SignUpStackParamList>
   ForgotStack: undefined
 }
 export type MainBottomTabParamList = {
@@ -17,6 +18,12 @@ export type MainBottomTabParamList = {
   UploadView: undefined
   NotificationView: undefined
   ProfileView: NavigatorScreenParams<ProfileViewStackParamList>
+}
+export type SignUpStackParamList = {
+  EmailStack: undefined
+  ConfirmStack: undefined
+  CreatePassword: undefined
+  SaveLogin: undefined
 }
 export type SearchViewStackParamList = {
   PostDetailStack: undefined
@@ -38,4 +45,8 @@ export type AuthStackProps<T extends keyof AuthStackParamList> = CompositeScreen
 export type MainBottomTabProps<T extends keyof MainBottomTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<MainBottomTabParamList, T>,
   RootNativeStackViewProps<keyof RootNativeStackParamList>
+>
+export type SignUpStackProps<T extends keyof SignUpStackParamList> = CompositeScreenProps<
+  StackScreenProps<SignUpStackParamList, T>,
+  AuthStackProps<keyof AuthStackParamList>
 >
