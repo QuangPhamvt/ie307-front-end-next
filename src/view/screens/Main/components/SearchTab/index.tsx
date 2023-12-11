@@ -1,14 +1,16 @@
 import React from "react"
-import { View, Text } from "react-native"
-import HeaderComponent from "./components/HeaderComponent"
-import ListPostComponent from "./components/ListPostComponent"
-
+import { View } from "react-native"
+import { createStackNavigator } from "@react-navigation/stack"
+import { SearchViewStackParamList } from "~/src/view/type"
+import SearchStack from "./components/SearchStack"
+import PostDetailStack from "./components/PostDetailStack"
+const SearchViewStack = createStackNavigator<SearchViewStackParamList>()
 const SearchTab: React.FC = () => {
   return (
-    <View className="flex h-full w-full bg-white">
-      <HeaderComponent />
-      <ListPostComponent />
-    </View>
+    <SearchViewStack.Navigator initialRouteName="SearchStack" screenOptions={{ headerShown: false }}>
+      <SearchViewStack.Screen name="SearchStack" component={SearchStack} />
+      <SearchViewStack.Screen name="PostDetailStack" component={PostDetailStack} />
+    </SearchViewStack.Navigator>
   )
 }
 export default SearchTab

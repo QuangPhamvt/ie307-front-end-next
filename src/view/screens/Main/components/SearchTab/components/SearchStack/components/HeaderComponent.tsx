@@ -2,7 +2,7 @@ import { Octicons } from "@expo/vector-icons"
 import React from "react"
 import { Keyboard, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { useRecoilState } from "recoil"
-import { toggleSearchInputState } from "../store/atom"
+import { toggleSearchInputState } from "../../../store/atom"
 const HeaderComponent: React.FC = () => {
   const [toggleSearchInput, setToggleSearchInput] = useRecoilState(toggleSearchInputState)
   return (

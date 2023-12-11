@@ -26,6 +26,7 @@ export type SignUpStackParamList = {
   SaveLogin: undefined
 }
 export type SearchViewStackParamList = {
+  SearchStack: undefined
   PostDetailStack: undefined
   UserDetailStack: undefined
 }
