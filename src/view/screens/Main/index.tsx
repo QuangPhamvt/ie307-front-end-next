@@ -5,7 +5,6 @@ import { MainBottomTabParamList } from "../../type"
 import MainTab from "./components/MainTab"
 import NotificationTab from "./components/NotificationTab"
 import ProfileTab from "./components/ProfileTab"
-import UploadTab from "./components/UploadTab"
 import SearchTab from "./components/SearchTab"
 import {
   HomeTabBarIconComponent,
@@ -15,6 +14,8 @@ import {
   UploadTabBarIconComponent,
 } from "./components/TabBarIcon"
 import HeaderMainTabComponent from "./components/HeaderMainTabComponent"
+import UploadScreen from "../Upload"
+import UploadTab from "./components/UploadTab"
 
 const BottomTab = createBottomTabNavigator<MainBottomTabParamList>()
 const MainView: React.FC = () => {
