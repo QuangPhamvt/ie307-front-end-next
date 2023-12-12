@@ -1,16 +1,37 @@
 import React from "react"
-import { View } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { SearchViewStackParamList } from "~/src/view/type"
 import SearchStack from "./components/SearchStack"
 import PostDetailStack from "./components/PostDetailStack"
-const SearchViewStack = createStackNavigator<SearchViewStackParamList>()
+import UserDetailStack from "./components/UserDetailStack"
+const Stack = createStackNavigator<SearchViewStackParamList>()
 const SearchTab: React.FC = () => {
   return (
-    <SearchViewStack.Navigator initialRouteName="SearchStack" screenOptions={{ headerShown: false }}>
-      <SearchViewStack.Screen name="SearchStack" component={SearchStack} />
-      <SearchViewStack.Screen name="PostDetailStack" component={PostDetailStack} />
-    </SearchViewStack.Navigator>
+    <Stack.Navigator initialRouteName="SearchStack" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SearchStack" component={SearchStack} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: "Explore",
+          headerTintColor: "black",
+          headerLeftLabelVisible: false,
+          headerStatusBarHeight: 0,
+        }}
+        name="PostDetailStack"
+        component={PostDetailStack}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: "User",
+          headerStatusBarHeight: 0,
+          headerTintColor: "black",
+          headerLeftLabelVisible: false,
+        }}
+        name="UserDetailStack"
+        component={UserDetailStack}
+      />
+    </Stack.Navigator>
   )
 }
 export default SearchTab

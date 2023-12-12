@@ -51,3 +51,12 @@ export type SignUpStackProps<T extends keyof SignUpStackParamList> = CompositeSc
   StackScreenProps<SignUpStackParamList, T>,
   AuthStackProps<keyof AuthStackParamList>
 >
+export type SearchViewStackProps<T extends keyof SearchViewStackParamList> = CompositeScreenProps<
+  StackScreenProps<SearchViewStackParamList, T>,
+  MainBottomTabProps<keyof MainBottomTabParamList>
+>
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootNativeStackParamList {}
+  }
+}

@@ -1,10 +1,11 @@
 import React from "react"
-import { View, Text } from "react-native"
+import { Text, ScrollView } from "react-native"
+import ListPostComponent from "./components/ListPostComponent"
 const PostDetailStack: React.FC = () => {
   return (
-    <View>
-      <Text>Post Detail Stack</Text>
-    </View>
+    <ScrollView className="flex w-full">
+      <ListPostComponent />
+    </ScrollView>
   )
 }
 export default PostDetailStack
