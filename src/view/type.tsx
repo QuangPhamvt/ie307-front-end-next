@@ -6,6 +6,7 @@ export type RootNativeStackParamList = {
   AuthView: NavigatorScreenParams<AuthStackParamList>
   MainView: NavigatorScreenParams<MainBottomTabParamList>
   EditProfileView: undefined
+  UploadView: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined

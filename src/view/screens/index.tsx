@@ -7,6 +7,7 @@ import authAction from "./Auth/store/authAction"
 import { useRecoilValue } from "recoil"
 import { authState } from "~/src/store/atom"
 import EditProfileView from "./EditProfile"
+import UploadScreen from "./Upload"
 
 const NativeStack = createNativeStackNavigator<RootNativeStackParamList>()
 const Screens: React.FC = () => {
@@ -19,6 +20,7 @@ const Screens: React.FC = () => {
       ) : (
         <>
           <NativeStack.Screen name="MainView" component={MainView} />
+          <NativeStack.Screen name="UploadView" component={UploadScreen} />
           <NativeStack.Screen
             options={{
               headerShown: true,

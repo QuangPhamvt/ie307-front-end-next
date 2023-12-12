@@ -10,9 +10,9 @@ const ImageHoc: React.FC<TImageHOC> = (props) => {
   const { className, uri, onPress } = props
   const [imageError, setImageError] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
-
+  if (!uri) return null
   return (
-    <View className="h-full w-full">
+    <View className="w-full h-full">
       <Image
         className={"h-full w-full"}
         source={{ uri }}
@@ -23,7 +23,7 @@ const ImageHoc: React.FC<TImageHOC> = (props) => {
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
       />
-      {loading && <ActivityIndicator className="absolute bottom-0 left-0 right-0 top-0 " animating={loading} />}
+      {loading && <ActivityIndicator className="absolute top-0 bottom-0 left-0 right-0 " animating={loading} />}
     </View>
   )
 }
