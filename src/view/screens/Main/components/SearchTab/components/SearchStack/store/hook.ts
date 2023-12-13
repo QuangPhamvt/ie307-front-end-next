@@ -9,12 +9,21 @@ const useGetListPost = () => {
     try {
       setListPostSearch((preState) => ({ ...preState, state: "loading" }))
       const { data } = await postApi.postPostList({ limit, offset })
+      if (!data.data.length) {
+        setListPostSearch((preState) => ({ ...preState, state: "hasValue" }))
+        return
+      }
+      const newData = {
+        amountPosts: +limit,
+        direction: Math.floor(Math.random()) ? "left" : "right",
+        data: [...data.data],
+      }
       setListPostSearch((preState) => ({
         ...preState,
         state: "hasValue",
-        limit: "5",
+        limit: Math.floor(Math.random()) ? "3" : "5",
         offset: `${offset + limit}`,
-        data: [...preState.data, ...data.data],
+        data: [...preState.data, newData],
       }))
     } catch (error) {}
   }

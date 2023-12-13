@@ -2,44 +2,19 @@ import React from "react"
 import { View } from "react-native"
 import HeaderComponent from "./components/HeaderComponent"
 import InstaGrid from "./components/ListPostComponent"
-const mockData = [
-  {
-    amountPosts: 5,
-    direction: "left",
-    data: [
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-    ],
-  },
-  {
-    amountPosts: 5,
-    direction: "right",
-    data: [
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-    ],
-  },
-  {
-    amountPosts: 3,
-    direction: "left",
-    data: [
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-      { uri: "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-08/Pug1.jpg" },
-    ],
-  },
-]
+import SearchStackAction from "./store/hook"
+import { useRecoilValue } from "recoil"
+import { listPostSearchState } from "./store/atom"
 const SearchStack: React.FC = () => {
+  const { onGetListPost } = SearchStackAction.useGetListPost()
+  const { data } = useRecoilValue(listPostSearchState)
+  React.useEffect(() => {
+    onGetListPost()
+  }, [])
   return (
     <View className="flex w-full h-full bg-white">
       <HeaderComponent />
-      <InstaGrid data={mockData} columns={3} loading={false} onEndReached={() => null} onEndReachedThreshold={400} />
+      <InstaGrid data={data} columns={3} loading={false} onEndReached={() => null} onEndReachedThreshold={400} />
     </View>
   )
 }

@@ -4,7 +4,14 @@ import { TState } from "~/src/utilities"
 type TListPostSearchState = {
   state: TState
   message: string | null
-  data: { id: string; images: Array<string> }[]
+  data: Array<{
+    amountPosts: number
+    direction: string
+    data: Array<{
+      id: string
+      images: Array<string>
+    }>
+  }>
   offset: string
   limit: string
 }
@@ -14,7 +21,7 @@ export const listPostSearchState = atom<TListPostSearchState>({
     state: "idle",
     message: null,
     offset: "0",
-    limit: "5",
+    limit: "3",
     data: [],
   },
 })
