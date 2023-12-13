@@ -1,6 +1,50 @@
 import * as MediaLibrary from "expo-media-library"
-import { useSetRecoilState } from "recoil"
-import { listImageLibraryState, originImageState } from "./atom"
+import { useRecoilState, useSetRecoilState } from "recoil"
+import { listImageLibraryState, originImageState, uploadPostState } from "./atom"
+import { imageToBase64, saveImage } from "~/src/utilities"
+
+const useGetImageToUpload = () => {
+  const [listImages, setListImages] = useRecoilState(uploadPostState)
+  const onGetImageToUpload = async ({ id, uri, isChoice }: { id: string; uri: string; isChoice: boolean }) => {
+    const images = listImages.images
+    const data = await imageToBase64(uri)
+    const newImage = {
+      id,
+      image: data,
+    }
+
+    if (images.length === 0) {
+      setListImages((preState) => ({
+        ...preState,
+        state: "hasValue",
+        title: preState.title,
+        images: [newImage],
+      }))
+      return
+    }
+    if (isChoice) {
+      setListImages((preState) => ({
+        ...preState,
+        state: "hasValue",
+        title: preState.title,
+        images: [...images, newImage],
+      }))
+      return
+    }
+
+    const newImages = listImages.images.filter((item) => {
+      return item.id !== id
+    })
+    setListImages((preState) => ({
+      ...preState,
+      state: "hasValue",
+      title: preState.title,
+      images: [...newImages],
+    }))
+  }
+
+  return { onGetImageToUpload }
+}
 const useGetListImage = () => {
   const setOriginImage = useSetRecoilState(originImageState)
   const setImageLib = useSetRecoilState(listImageLibraryState)
@@ -13,17 +57,19 @@ const useGetListImage = () => {
     }
     const getPhotos = await MediaLibrary.getAlbumAsync(albumName)
     const getAllPhotos = await MediaLibrary.getAssetsAsync({
-      first: 20,
+      first: 100,
       album: getPhotos,
       sortBy: ["creationTime"],
       mediaType: "photo",
     })
     setImageLib({
       state: "hasValue",
-      data: getAllPhotos.assets.map((item) => ({
-        id: item.id,
-        uri: item.uri,
-      })),
+      data: await Promise.all(
+        getAllPhotos.assets.map(async (item) => ({
+          id: item.id,
+          uri: await saveImage(item.uri),
+        })),
+      ),
     })
     setOriginImage({
       data: {
@@ -36,5 +82,6 @@ const useGetListImage = () => {
 }
 const uploadImageAction = {
   useGetListImage,
+  useGetImageToUpload,
 }
 export default uploadImageAction
