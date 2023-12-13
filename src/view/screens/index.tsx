@@ -9,6 +9,7 @@ import { authState } from "~/src/store/atom"
 import EditProfileView from "./EditProfile"
 import UploadScreen from "./Upload"
 import StoryView from "./StoryVIew"
+import NewPostScreen from "./NewPost"
 
 const NativeStack = createNativeStackNavigator<RootNativeStackParamList>()
 const Screens: React.FC = () => {
@@ -23,6 +24,15 @@ const Screens: React.FC = () => {
           <NativeStack.Screen name="MainView" component={MainView} />
           <NativeStack.Screen name="UploadView" component={UploadScreen} />
           <NativeStack.Screen name="StoryView" component={StoryView} />
+          <NativeStack.Screen
+            options={{
+              headerShown: true,
+              title: "Edit Profile",
+              headerTintColor: "New post",
+            }}
+            name="NewPostView"
+            component={NewPostScreen}
+          />
           <NativeStack.Screen
             options={{
               headerShown: true,

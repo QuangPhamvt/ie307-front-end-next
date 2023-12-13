@@ -8,6 +8,7 @@ export type RootNativeStackParamList = {
   EditProfileView: undefined
   UploadView: undefined
   StoryView: undefined
+  NewPostView: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
