@@ -30,7 +30,7 @@ export type SignUpStackParamList = {
 }
 export type SearchViewStackParamList = {
   SearchStack: undefined
-  PostDetailStack: undefined
+  PostDetailStack: { post_id: string }
   UserDetailStack: undefined
 }
 export type ProfileViewStackParamList = {
