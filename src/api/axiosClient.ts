@@ -1,6 +1,10 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios"
 import * as SecureToken from "expo-secure-store"
 import { Buffer } from "buffer"
+import authAction from "../view/screens/Auth/store/authAction"
+import { useResetRecoilState } from "recoil"
+import { authState } from "../store/atom"
+import { LocalStorage } from "../utilities"
 
 // Boot Instance
 const axiosClient = axios.create({
@@ -13,6 +17,7 @@ const axiosClient = axios.create({
 // Setup Interceptors
 // Interceptor Request
 const onRequest = async (config: any) => {
+  // const resetAuth = useResetRecoilState(authState)
   try {
     console.log("Axios Request: ", config.url)
     const accessToken = await SecureToken.getItemAsync("ie307_access_token")
@@ -27,7 +32,24 @@ const onRequest = async (config: any) => {
         .split(".")
         .map((part) => Buffer.from(part.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString())
       const { exp } = JSON.parse(parts[1])
-      if (exp && exp < (Date.now() + 1) / 1000) config.headers["Authorization"] = await getRefreshToken(accessToken)
+
+      if (exp && exp < (Date.now() + 1) / 1000) {
+        const refreshToken = await SecureToken.getItemAsync("ie307_refresh_token")
+        console.log(refreshToken)
+        if (refreshToken) {
+          const { exp: Exp_rt } = JSON.parse(
+            refreshToken
+              .split(".")
+              .map((part) => Buffer.from(part.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString())[1],
+          )
+          if (Exp_rt && Exp_rt < (Date.now() + 1) / 1000) {
+            await LocalStorage.removeAccessTokenSecureStore()
+            await LocalStorage.removeRefreshTokenSecureStore()
+          }
+        } else {
+          config.headers["Authorization"] = await getRefreshToken(accessToken)
+        }
+      }
     }
     return config
   } catch (error: any) {

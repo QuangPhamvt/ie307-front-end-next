@@ -6,10 +6,12 @@ import MainComponent from "./components/MainComponent"
 
 const ProfileTab: React.FC = () => {
   return (
-    <ScrollView className="flex h-full bg-white">
-      <ModalSettingComponent />
-      <HeaderComponent />
-      <MainComponent />
+    <ScrollView alwaysBounceVertical={true} showsVerticalScrollIndicator={true} className="bg-white">
+      <View>
+        <ModalSettingComponent />
+        <HeaderComponent />
+        <MainComponent />
+      </View>
     </ScrollView>
   )
 }

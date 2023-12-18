@@ -3,6 +3,7 @@ import { View, SafeAreaView } from "react-native"
 import HeaderComponent from "./component/HeaderComponent"
 import MainComponent from "./component/MainComponent"
 import { ModalEditAvatar } from "./component/ModalEditAvatar"
+import ModalUploadAvatar from "./component/ModalUploadAvatar"
 
 const EditProfileView: React.FC = () => {
   return (

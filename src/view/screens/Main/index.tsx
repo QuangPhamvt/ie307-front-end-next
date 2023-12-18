@@ -1,5 +1,5 @@
 import React from "react"
-import { SafeAreaView } from "react-native"
+import { SafeAreaView, StatusBar } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { MainBottomTabParamList } from "../../type"
 import MainTab from "./components/MainTab"
@@ -21,6 +21,7 @@ const BottomTab = createBottomTabNavigator<MainBottomTabParamList>()
 const MainView: React.FC = () => {
   return (
     <SafeAreaView className="h-screen">
+      <StatusBar backgroundColor={"white"} />
       <BottomTab.Navigator
         initialRouteName="HomeView"
         screenOptions={({ route }) => ({

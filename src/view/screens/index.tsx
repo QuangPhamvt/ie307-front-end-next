@@ -1,20 +1,29 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { RootNativeStackParamList } from "../type"
 import AuthView from "./Auth"
 import MainView from "./Main"
 import authAction from "./Auth/store/authAction"
 import { useRecoilValue } from "recoil"
-import { authState } from "~/src/store/atom"
+import { authState, userState } from "~/src/store/atom"
 import EditProfileView from "./EditProfile"
 import UploadScreen from "./Upload"
 import StoryView from "./StoryVIew"
 import NewPostScreen from "./NewPost"
+import { Text } from "react-native"
+import UsernameEdit from "./UsernameEdit"
+import BioEditView from "./BioEdit"
 
 const NativeStack = createNativeStackNavigator<RootNativeStackParamList>()
 const Screens: React.FC = () => {
   const { state } = useRecoilValue(authState)
+  const user = useRecoilValue(userState)
   authAction.getProfileLocalAuthAction()
+  const { onGetMe } = authAction.getMe()
+  React.useEffect(() => {
+    if (state === "hasValue") onGetMe()
+  }, [state])
+
   return (
     <NativeStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="AuthView">
       {state !== "hasValue" ? (
@@ -41,6 +50,26 @@ const Screens: React.FC = () => {
             }}
             name="EditProfileView"
             component={EditProfileView}
+          />
+          <NativeStack.Screen
+            options={{
+              headerShown: true,
+              title: "username",
+              headerTintColor: "black",
+              headerRight: () => <Text className="text-lg font-bold text-sky-500">Done</Text>,
+            }}
+            name="Username"
+            component={UsernameEdit}
+          />
+          <NativeStack.Screen
+            options={{
+              headerShown: true,
+              title: "Bio",
+              headerTintColor: "black",
+              headerRight: () => <Text className="text-lg font-bold text-sky-500">Done</Text>,
+            }}
+            name="Bio"
+            component={BioEditView}
           />
         </>
       )}

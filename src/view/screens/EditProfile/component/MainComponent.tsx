@@ -1,6 +1,10 @@
-import { Text, View } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { Text, TouchableOpacity, Touchable, View } from "react-native"
+import { RootNativeStackParamList } from "~/src/view/type"
 
 const MainComponent = () => {
+  const navigation = useNavigation<StackNavigationProp<RootNativeStackParamList, "EditProfileView">>()
   return (
     <View className="flex w-full px-3">
       <View className="flex flex-row py-3">
@@ -16,9 +20,11 @@ const MainComponent = () => {
         <View className="w-[30%] pb-1">
           <Text className="border-b-[0.5px] text-lg">Username</Text>
         </View>
-        <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
-          <Text className="text-lg ">quangquang___</Text>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Username")} className="w-full">
+          <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
+            <Text className="text-lg ">quangquang___</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View className="flex flex-row pb-3">
@@ -30,14 +36,16 @@ const MainComponent = () => {
         </View>
       </View>
 
-      <View className="flex flex-row pb-3">
-        <View className="w-[30%] pb-1">
-          <Text className="border-b-[0.5px] text-lg">Bio</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Bio")} className="w-full">
+        <View className="flex flex-row pb-3">
+          <View className="w-[30%] pb-1">
+            <Text className="border-b-[0.5px] text-lg">Bio</Text>
+          </View>
+          <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
+            <Text className="text-lg ">Hello this message</Text>
+          </View>
         </View>
-        <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
-          <Text className="text-lg ">Hello this message</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
 
       <View className="flex flex-row pb-3">
         <View className="w-[30%] pb-1">
