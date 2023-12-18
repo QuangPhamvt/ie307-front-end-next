@@ -6,7 +6,7 @@ import { toggleSearchInputState } from "../../../store/atom"
 const HeaderComponent: React.FC = () => {
   const [toggleSearchInput, setToggleSearchInput] = useRecoilState(toggleSearchInputState)
   return (
-    <View className="flex flex-row items-center space-x-2 bg-gray-300 px-4 py-2">
+    <View className="flex flex-row items-center px-4 py-2 space-x-2">
       <TouchableOpacity className="flex w-[80%] grow flex-row items-center space-x-2 rounded-lg border-[1px] border-solid border-gray-400 p-2">
         <Octicons name="search" size={14} />
         <TextInput

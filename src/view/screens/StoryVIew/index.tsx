@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from "react-native"
+import { View, SafeAreaView } from "react-native"
 import { default as HeaderStoryView } from "./component/HeaderComponent"
 import { default as MainStoryView } from "./component/MainComponent"
 

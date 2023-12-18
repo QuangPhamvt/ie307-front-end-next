@@ -9,6 +9,8 @@ export type RootNativeStackParamList = {
   UploadView: undefined
   StoryView: undefined
   NewPostView: undefined
+  Username: undefined
+  Bio: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
@@ -31,7 +33,7 @@ export type SignUpStackParamList = {
 export type SearchViewStackParamList = {
   SearchStack: undefined
   PostDetailStack: { post_id: string }
-  UserDetailStack: undefined
+  UserDetailStack: { user_id: string }
 }
 export type ProfileViewStackParamList = {
   EditProfileStack: undefined

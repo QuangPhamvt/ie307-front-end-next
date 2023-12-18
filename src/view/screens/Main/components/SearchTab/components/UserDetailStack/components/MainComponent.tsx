@@ -1,10 +1,13 @@
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
 import React from "react"
-import { View, TouchableOpacity } from "react-native"
+import { View, TouchableOpacity, Image } from "react-native"
+import { useRecoilValue } from "recoil"
+import { userDetailState } from "../../../store/atom"
 const ListPostMainComponent: React.FC = () => {
   const [status, setStatus] = React.useState<"Post" | "Story" | "Photo">("Post")
+  const { state, contents } = useRecoilValue(userDetailState)
   return (
-    <View className="mt-4 flex ">
+    <View className="flex mt-4 ">
       <View className="w-full border-b-[1px] border-gray-200" />
       <View className="flex w-full flex-row border-b-[1px] border-gray-200">
         <TouchableOpacity
@@ -32,12 +35,22 @@ const ListPostMainComponent: React.FC = () => {
           <MaterialCommunityIcons name="account-details-outline" size={28} />
         </TouchableOpacity>
       </View>
+      <View className="flex flex-row flex-wrap ">
+        {contents?.posts &&
+          contents.posts.map((item) => {
+            return (
+              <View key={item.post_id} className="aspect-square h-[30%] w-1/3 ">
+                <Image className="w-full h-full" source={{ uri: item ? item.images[0] : "abc" }} />
+              </View>
+            )
+          })}
+      </View>
     </View>
   )
 }
 const MainComponent: React.FC = () => {
   return (
-    <View className="mt-4 flex h-72 w-full">
+    <View className="flex w-full mt-4 h-72">
       <ListPostMainComponent />
     </View>
   )

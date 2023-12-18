@@ -1,6 +1,8 @@
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
 import React from "react"
-import { Text, View, ScrollView, TouchableOpacity, Animated, Touchable } from "react-native"
+import { Text, View, ScrollView, TouchableOpacity, Image } from "react-native"
+import { useRecoilValue, useResetRecoilState } from "recoil"
+import { userState } from "~/src/store/atom"
 const StoryMainComponent: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true)
   return (
@@ -19,7 +21,7 @@ const StoryMainComponent: React.FC = () => {
         </TouchableOpacity>
       </View>
       {isOpen && (
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} className="flex w-full space-x-4 px-2">
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} className="flex w-full px-2 space-x-4">
           <View className="aspect-square h-[72px] rounded-full border-[1px] border-solid border-gray-400 bg-white" />
           <View className="aspect-square h-[72px] rounded-full border-[1px] border-solid border-gray-400 bg-white" />
           <View className="aspect-square h-[72px] rounded-full border-[1px] border-solid border-gray-400 bg-white" />
@@ -32,8 +34,9 @@ const StoryMainComponent: React.FC = () => {
 }
 const ListPostMainComponent: React.FC = () => {
   const [status, setStatus] = React.useState<"Post" | "Story" | "Photo">("Post")
+  const { contents } = useRecoilValue(userState)
   return (
-    <View className="mt-4 flex ">
+    <View className="flex mt-4">
       <View className="w-full border-b-[1px] border-gray-200" />
       <View className="flex w-full flex-row border-b-[1px] border-gray-200">
         <TouchableOpacity
@@ -61,12 +64,22 @@ const ListPostMainComponent: React.FC = () => {
           <MaterialCommunityIcons name="account-details-outline" size={28} />
         </TouchableOpacity>
       </View>
+      <View className="flex flex-row flex-wrap ">
+        {contents?.posts &&
+          contents.posts.map((item) => {
+            return (
+              <View key={item.post_id} className="aspect-square h-[30%] w-1/3 ">
+                <Image className="w-full h-full" source={{ uri: item ? item.images[0] : "abc" }} />
+              </View>
+            )
+          })}
+      </View>
     </View>
   )
 }
 const MainComponent: React.FC = () => {
   return (
-    <View className="mt-4 flex h-72 w-full">
+    <View className="flex w-full mt-4 ">
       <StoryMainComponent />
       <ListPostMainComponent />
     </View>

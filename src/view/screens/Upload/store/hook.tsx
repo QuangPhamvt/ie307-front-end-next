@@ -57,7 +57,7 @@ const useGetListImage = () => {
     }
     const getPhotos = await MediaLibrary.getAlbumAsync(albumName)
     const getAllPhotos = await MediaLibrary.getAssetsAsync({
-      first: 100,
+      first: 20,
       album: getPhotos,
       sortBy: ["creationTime"],
       mediaType: "photo",

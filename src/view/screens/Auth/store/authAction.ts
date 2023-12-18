@@ -1,15 +1,13 @@
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 import { authApi } from "~/src/api"
 import { logInFormState } from "../components/LogInStack/store/atom"
-import { authState } from "~/src/store/atom"
+import { authState, userState } from "~/src/store/atom"
 import { LocalStorage, checkIsMail, encodeJWT } from "~/src/utilities"
 import { sentEmailVerifyState, signUpFormState } from "../components/SignUpStack/store/atom"
 import { Alert } from "react-native"
 import React from "react"
-import { useNavigation } from "@react-navigation/native"
-import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types"
-import { RootNativeStackParamList } from "~/src/view/type"
-import { showModalSettingState } from "../../Main/components/ProfileTab/store/atom"
+import { userApi } from "~/src/api/userApi"
+import { listPostSearchState } from "../../Main/components/SearchTab/components/SearchStack/store/atom"
 
 const logInAction = () => {
   const setAuthState = useSetRecoilState(authState)
@@ -24,6 +22,7 @@ const logInAction = () => {
       })
       if (!email || !password) throw { data: { message: "Email or password is empty" } }
       if (!checkIsMail(email)) throw { data: { message: "Email not verify" } }
+      console.log("signIn")
       const { data } = await authApi.postSignIn({ email, password })
       const { access_token, refresh_token } = data.data[0]
       const { id, username, avatar } = encodeJWT(access_token)
@@ -36,7 +35,6 @@ const logInAction = () => {
       await LocalStorage.setRefreshTokenSecureStore(refresh_token)
     } catch (error: any) {
       const { message } = error.data
-      console.error(message)
       setAuthState({ state: "hasError", message, contents: null })
       alert(message)
     }
@@ -95,11 +93,13 @@ const signUpAuthAction = () => {
 }
 const logOutAuthAction = () => {
   const resetAuth = useResetRecoilState(authState)
+  const resetListPost = useResetRecoilState(listPostSearchState)
   const onLogOutAction = async () => {
     try {
-      resetAuth()
       await LocalStorage.removeAccessTokenSecureStore()
       await LocalStorage.removeRefreshTokenSecureStore()
+      resetListPost()
+      resetAuth()
     } catch (error) {
       console.error(error)
     }
@@ -118,6 +118,50 @@ const getProfileLocalAuthAction = () => {
     setAuthState({ state: "hasValue", message: null, contents: { id, username, avatar } })
   }
 }
+const getMe = () => {
+  const setUserState = useSetRecoilState(userState)
+  const onGetMe = async () => {
+    try {
+      setUserState({ state: "loading", message: null, contents: null })
+      const { data } = await userApi.getMe()
+      if (data.data[0].user.follows && data.data[0].user.follows.following_id) {
+        setUserState({
+          state: "hasValue",
+          message: data.message,
+          contents: {
+            ...data.data[0],
+            user: {
+              ...data.data[0].user,
+              follows: {
+                ...data.data[0].user.follows,
+                following_id: JSON.parse(data.data[0].user.follows.following_id),
+              },
+            },
+          },
+        })
+      } else {
+        setUserState({
+          state: "hasValue",
+          message: data.message,
+          contents: {
+            ...data.data[0],
+            user: {
+              ...data.data[0].user,
+              follows: {
+                ...data.data[0].user.follows,
+                following_id: [],
+              },
+            },
+          },
+        })
+      }
+    } catch (error: any) {
+      console.error(error)
+      setUserState({ state: "hasError", message: null, contents: null })
+    }
+  }
+  return { onGetMe }
+}
 
 const authAction = {
   logInAction,
@@ -125,5 +169,6 @@ const authAction = {
   signUpAuthAction,
   logOutAuthAction,
   getProfileLocalAuthAction,
+  getMe,
 }
 export default authAction

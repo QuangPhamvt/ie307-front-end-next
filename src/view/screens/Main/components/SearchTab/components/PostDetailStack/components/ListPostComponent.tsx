@@ -8,6 +8,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { SearchViewStackParamList } from "~/src/view/type"
 import PostDetailAction from "../store/hook"
+import { userState } from "~/src/store/atom"
 
 interface IItemPostComponent {
   author_id: string
@@ -27,33 +28,38 @@ interface IItemPostComponent {
 }
 const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
   const { author_id, avatar, loves, create_at, images, email } = props
+  console.log(author_id)
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "PostDetailStack">>()
   const setShowModal = useSetRecoilState(showCommentPostDetailState)
+  const { contents } = useRecoilValue(userState)
   return (
     <View className="flex w-full border-b-[1px] border-gray-400 pb-2">
-      <View className="flex flex-row items-center space-x-2 p-2">
+      <View className="flex flex-row items-center p-2 space-x-2">
         {avatar ? (
-          <Image source={{ uri: avatar }} className="aspect-square h-8 rounded-full bg-gray-500" />
+          <Image source={{ uri: avatar }} className="h-8 bg-gray-500 rounded-full aspect-square" />
         ) : (
-          <View className="aspect-square h-8 rounded-full bg-gray-500" />
+          <View className="h-8 bg-gray-500 rounded-full aspect-square" />
         )}
-        <View className="flex grow flex-row items-center justify-between">
+        <View className="flex flex-row items-center justify-between grow">
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("UserDetailStack")
+              navigation.navigate("UserDetailStack", { user_id: author_id })
             }}
           >
             <Text className="font-bold">{email?.split("@")[0]}</Text>
           </TouchableOpacity>
-          <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
-            <Text className="font-medium text-white">Follow</Text>
-          </TouchableOpacity>
+          {contents?.user?.follows?.following_id &&
+            contents.user.follows.following_id.some((item) => item == author_id) && (
+              <TouchableOpacity className="px-4 py-1 bg-gray-400 rounded-lg">
+                <Text className="font-medium text-white">Follow</Text>
+              </TouchableOpacity>
+            )}
         </View>
       </View>
       <View className="aspect-square w-full border-[1px] border-solid border-black bg-slate-200">
-        <Image source={{ uri: images[0] }} className="h-full w-full" />
+        <Image source={{ uri: images[0] }} className="w-full h-full" />
       </View>
-      <View className="flex flex-row items-start space-x-4 p-2">
+      <View className="flex flex-row items-start p-2 space-x-4">
         <AntDesign name="heart" size={28} />
         <TouchableOpacity
           onPress={() => {
@@ -63,7 +69,7 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
           <Fontisto name="comment" size={26} />
         </TouchableOpacity>
       </View>
-      <View className="mt-1 flex space-y-1 px-2">
+      <View className="flex px-2 mt-1 space-y-1">
         <Text className="font-bold">{loves} loves</Text>
         <Text>
           <Text className="font-bold">quangquang___</Text> To day is lucky day
@@ -82,7 +88,6 @@ const ListPostComponent: React.FC = () => {
       onGetOriginListPost(route.params.post_id)
     }
   }, [])
-  console.log(listPost)
 
   return (
     <>

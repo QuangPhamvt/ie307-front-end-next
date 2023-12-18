@@ -18,4 +18,5 @@ export const PATH = {
   POST_UN_FOLLOWING: "follow/un-following",
 
   ORIGIN_USER: "user/search",
+  GET_ME: "user",
 }
