@@ -1,8 +1,6 @@
 import { atom } from "recoil"
+import { TShowCommentModalState } from "~/src/utilities/type"
 
-type TShowCommentModalState = {
-  isOpen: boolean
-}
 export const showCommentModalState = atom<TShowCommentModalState>({
   key: "showCommentModalStateAtom",
   default: {

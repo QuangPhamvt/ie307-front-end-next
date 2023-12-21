@@ -2,7 +2,6 @@ import React from "react"
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil"
-
 import { logInFormState } from "../store/atom"
 import authAction from "../../../store/authAction"
 import { authState } from "~/src/store/atom"
@@ -13,27 +12,27 @@ const FormComponent: React.FC = () => {
   const auth = useRecoilValue(authState)
   const { onLogInAction } = authAction.logInAction()
   return (
-    <KeyboardAvoidingView behavior="padding" className="flex items-center justify-center h-80">
-      <View className="flex items-center justify-center w-full my-4 space-y-2 h-fit">
-        <View className="flex w-full flex-row items-start  rounded-xl border-[1px] border-solid border-gray-600 px-2 py-3">
+    <KeyboardAvoidingView behavior="padding" className="flex h-80 items-center justify-center">
+      <View className="my-4 flex h-fit w-full items-center justify-center space-y-2">
+        <View className="flex h-auto w-full flex-row items-center rounded-xl border border-solid border-gray-600 px-2 py-3">
           <TextInput
             value={getLogInFormState?.email ? getLogInFormState.email : ""}
             onChangeText={(email) => setLogInFormState((preState) => ({ ...preState, email }))}
             placeholder="Username, email or mobile number"
-            className="flex items-center justify-center w-full text-base align-text-top"
+            className="flex w-full "
           />
         </View>
-        <View className="flex w-full flex-row items-center justify-between rounded-xl border-[1px] border-solid border-gray-600 px-2 py-3">
+        <View className="flex w-full flex-row items-center justify-between rounded-xl border border-solid border-gray-600 px-2 py-3">
           <TextInput
             onTouchStart={() => setIsHidePassword(true)}
             value={!!getLogInFormState?.password ? getLogInFormState.password : ""}
             onChangeText={(password) => setLogInFormState((preState) => ({ ...preState, password }))}
             placeholder="Password"
-            className="flex items-center justify-center w-4/5"
+            className="flex w-4/5 "
             secureTextEntry={isHidePassword ? true : false}
           />
-          {isHidePassword === false && <Feather name="eye-off" size={24} onPress={() => setIsHidePassword(true)} />}
-          {isHidePassword === true && <Feather name="eye" size={24} onPress={() => setIsHidePassword(false)} />}
+          {isHidePassword === false && <Feather name="eye-off" size={16} onPress={() => setIsHidePassword(true)} />}
+          {isHidePassword === true && <Feather name="eye" size={16} onPress={() => setIsHidePassword(false)} />}
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -45,7 +44,7 @@ const FormComponent: React.FC = () => {
           {auth.state === "loading" && <Feather name="loader" size={24} />}
           {auth.state !== "loading" && <Text className="text-lg font-medium text-white">Log in</Text>}
         </TouchableOpacity>
-        <View className="flex items-center justify-center w-full py-3">
+        <View className="flex w-full items-center justify-center py-3">
           <Text className="text-sm font-bold text-gray-700">Forgot password?</Text>
         </View>
       </View>

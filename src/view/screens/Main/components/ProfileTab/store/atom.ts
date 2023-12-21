@@ -1,8 +1,6 @@
 import { atom } from "recoil"
+import { TShowModalSettingState } from "~/src/utilities/type"
 
-type TShowModalSettingState = {
-  isOpen: boolean
-}
 export const showModalSettingState = atom<TShowModalSettingState>({
   key: "showModalSettingStateAtom",
   default: {
