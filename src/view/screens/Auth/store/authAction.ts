@@ -84,7 +84,6 @@ const signUpAuthAction = () => {
       alert(data.message)
     } catch (error: any) {
       const { message } = error.data
-      console.error(message)
       setAuthState({ state: "hasError", message, contents: null })
       alert(message)
     }
@@ -94,12 +93,14 @@ const signUpAuthAction = () => {
 const logOutAuthAction = () => {
   const resetAuth = useResetRecoilState(authState)
   const resetListPost = useResetRecoilState(listPostSearchState)
+  const resetUser = useResetRecoilState(userState)
   const onLogOutAction = async () => {
     try {
       await LocalStorage.removeAccessTokenSecureStore()
       await LocalStorage.removeRefreshTokenSecureStore()
       resetListPost()
       resetAuth()
+      resetUser()
     } catch (error) {
       console.error(error)
     }

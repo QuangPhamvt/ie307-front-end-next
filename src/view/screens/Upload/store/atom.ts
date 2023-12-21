@@ -1,30 +1,11 @@
 import { atom } from "recoil"
-import { TState } from "~/src/utilities"
-type TMultiImagesState = boolean
-type TOriginImageState = {
-  data: {
-    id: string
-    uri: string
-  } | null
-}
-type TListImageLibraryState = {
-  state: TState
-  data:
-    | {
-        id: string
-        uri: string
-      }[]
-    | null
-}
-type TUploadPostState = {
-  state: TState
-  title: string | null
-  images: { id: string; image: string }[]
-}
-type TPostUploadPostState = {
-  state: TState
-  message: string | null
-}
+import {
+  TListImageLibraryState,
+  TMultiImagesState,
+  TOriginImageState,
+  TPostUploadPostState,
+  TUploadPostState,
+} from "~/src/utilities/type"
 export const originImageState = atom<TOriginImageState>({
   key: "originImageStateAtom",
   default: {

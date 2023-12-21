@@ -1,31 +1,6 @@
 import { atom } from "recoil"
-import { TState } from "~/src/utilities"
+import { TToggleSearchInputState, TUserDetailState } from "~/src/utilities/type"
 
-type TUserDetailState = {
-  state: TState
-  message: string | null
-  contents: {
-    user: {
-      user_id: string
-      avatar: string
-      email: string
-      username: string
-      bio: string | null
-      follows: number
-      following: number
-    }
-    posts: [
-      {
-        post_id: string
-        images: Array<string>
-        create_at: string
-      },
-    ]
-  } | null
-}
-type TToggleSearchInputState = {
-  isFocus: boolean
-}
 export const toggleSearchInputState = atom<TToggleSearchInputState>({
   key: "toggleSearchInputStateAtom",
   default: {

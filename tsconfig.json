@@ -1,10 +1,11 @@
 {
-	"extends": "expo/tsconfig.base",
-	"compilerOptions": {
-		"module": "ES2022",
-		"strict": true,
-		"paths": {
-			"~/src/*": ["./src/*"]
-		}
-	}
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "module": "ES2022",
+    "strict": true,
+    "paths": {
+      "~/src/*": ["./src/*"],
+      "~/type": ["./src/utilities/type"]
+    }
+  }
 }

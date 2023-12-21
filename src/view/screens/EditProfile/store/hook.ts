@@ -46,8 +46,8 @@ const useGetImageUpload = () => {
     }
     if (!result.canceled) {
       saveImage(result.assets[0].uri)
+      setModalUploadAvatar(() => true)
     }
-    setModalUploadAvatar(() => true)
   }
   return { onSetImageUploadPayloadState }
 }

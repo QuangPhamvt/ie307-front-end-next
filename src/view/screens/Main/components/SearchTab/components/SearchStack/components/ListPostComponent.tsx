@@ -24,6 +24,25 @@ type TGroup3nthPost = {
   data: { id: string; images: Array<string> }[]
   direction: string
 }
+const Group1nthPost: React.FC<{ data: Array<{ id: string; images: Array<string> }> }> = (props) => {
+  const { data } = props
+  const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
+  return (
+    <View className="flex h-auto w-screen flex-row flex-wrap">
+      {data.map((item) => {
+        return (
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => navigation.navigate("PostDetailStack", { post_id: item.id })}
+            className="flex aspect-square h-1/3 w-1/3 items-center justify-center border-[1px] border-black"
+          >
+            <ImageHoc uri={item && item.images[0]} />
+          </TouchableOpacity>
+        )
+      })}
+    </View>
+  )
+}
 const Group5nthPost: React.FC<TGroup5nthPost> = (props) => {
   const { data, direction } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
@@ -132,8 +151,14 @@ const InstaGrid: React.FC<TInstaGrid> = ({ data, onEndReached, loading = false, 
       {data.map((item, index) => {
         return (
           <View key={index} className="w-full">
-            {item.amountPosts === 3 && <Group3nthPost data={item.data} direction={item.direction} />}
-            {item.amountPosts === 5 && <Group5nthPost data={item.data} direction={item.direction} />}
+            {item.amountPosts === 3 && item.data.length === 3 && (
+              <Group3nthPost data={item.data} direction={item.direction} />
+            )}
+            {item.amountPosts === 5 && item.data.length === 5 && (
+              <Group5nthPost data={item.data} direction={item.direction} />
+            )}
+            {(item.amountPosts === 3 && item.data.length !== 3) ||
+              (item.amountPosts === 5 && item.data.length !== 5 && <Group1nthPost data={item.data} />)}
           </View>
         )
       })}
