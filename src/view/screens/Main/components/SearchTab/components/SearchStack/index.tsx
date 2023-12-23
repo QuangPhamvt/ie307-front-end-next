@@ -12,7 +12,7 @@ const SearchStack: React.FC = () => {
     onGetListPost()
   }, [])
   return (
-    <View className="flex w-full h-full bg-white">
+    <View className="flex h-full w-full bg-white">
       <HeaderComponent />
       <InstaGrid data={data} columns={3} loading={false} onEndReached={() => null} onEndReachedThreshold={400} />
     </View>

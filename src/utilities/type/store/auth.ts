@@ -18,6 +18,7 @@ type TUserState = {
       email: string
       username: string
       bio: string | null
+      post_loves: Array<string>
       follows: {
         follows: number
         following: number

@@ -12,7 +12,7 @@ const HeaderHeaderComponent: React.FC = () => {
   const setShowModalSetting = useSetRecoilState(showModalSettingState)
   const { contents } = useRecoilValue(userState)
   return (
-    <View className="flex flex-row items-center justify-between h-10 ">
+    <View className="flex h-10 flex-row items-center justify-between ">
       <Text className="text-2xl font-bold">{contents?.user.username}</Text>
       <TouchableOpacity onPress={() => setShowModalSetting({ isOpen: true })}>
         <Entypo name="menu" size={32} />
@@ -24,23 +24,25 @@ const MainHeaderComponent: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootNativeStackParamList, "MainView">>()
   const { contents } = useRecoilValue(userState)
   return (
-    <View className="flex flex-row items-start w-full bg-white">
+    <View className="flex w-full flex-row items-start bg-white">
       <View className="flex space-y-2">
         <TouchableOpacity onPress={() => navigation.navigate("StoryView")}>
-          <View className="relative h-20 rounded-full aspect-square bg-slate-200">
-            <Image className="w-full h-full rounded-full" source={{ uri: contents?.user.avatar || "" }} />
-            <View className="absolute rounded-full -bottom-1 -right-1 aspect-square">
+          <View className="relative aspect-square h-20 rounded-full bg-slate-200">
+            {contents?.user.avatar && (
+              <Image className="h-full w-full rounded-full" source={{ uri: contents?.user.avatar || "" }} />
+            )}
+            <View className="absolute -bottom-1 -right-1 aspect-square rounded-full">
               <Ionicons name="md-add-circle-sharp" size={28} color={"#39A7FF"} className="text-white" />
             </View>
           </View>
         </TouchableOpacity>
         <View className="">
-          <Text className="font-bold w-34 line-clamp-1">{contents?.user.username || "Not have to see"}</Text>
+          <Text className="w-34 line-clamp-1 font-bold">{contents?.user.username || "Not have to see"}</Text>
           {contents?.user?.bio && <Text className="font-normal">{contents?.user.bio}</Text>}
         </View>
       </View>
 
-      <View className="flex flex-row items-center justify-end mt-8 space-x-4 grow">
+      <View className="mt-8 flex grow flex-row items-center justify-end space-x-4">
         <View className="flex items-center">
           {contents?.posts ? (
             <Text className="font-bold">{+contents?.posts.length}</Text>
@@ -75,7 +77,7 @@ export const BtnHeaderComponent: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootNativeStackParamList, "MainView">>()
 
   return (
-    <View className="flex flex-row w-full mt-4 space-x-1">
+    <View className="mt-4 flex w-full flex-row space-x-1">
       <TouchableOpacity
         onPress={() => navigation.navigate("EditProfileView")}
         className="flex grow items-center justify-center rounded-lg bg-[#F3F3F3] p-2"
@@ -90,7 +92,7 @@ export const BtnHeaderComponent: React.FC = () => {
 }
 export const HeaderComponent: React.FC = () => {
   return (
-    <View className="flex w-full px-2 bg-white">
+    <View className="flex w-full bg-white px-2">
       <HeaderHeaderComponent />
       <MainHeaderComponent />
       <BtnHeaderComponent />

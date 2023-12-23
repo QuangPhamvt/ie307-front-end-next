@@ -1,10 +1,14 @@
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { Text, TouchableOpacity, Touchable, View } from "react-native"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { userState } from "~/src/store/atom"
 import { RootNativeStackParamList } from "~/src/view/type"
 
 const MainComponent = () => {
   const navigation = useNavigation<StackNavigationProp<RootNativeStackParamList, "EditProfileView">>()
+  const { contents } = useRecoilValue(userState)
+  if (!contents?.user) return
   return (
     <View className="flex w-full px-3">
       <View className="flex flex-row py-3">
@@ -22,7 +26,7 @@ const MainComponent = () => {
         </View>
         <TouchableOpacity onPress={() => navigation.navigate("Username")} className="w-full">
           <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
-            <Text className="text-lg ">quangquang___</Text>
+            <Text className="text-lg ">{contents.user.username}</Text>
           </View>
         </TouchableOpacity>
       </View>

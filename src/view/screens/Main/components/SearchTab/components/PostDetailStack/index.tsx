@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, ScrollView } from "react-native"
+import { ScrollView } from "react-native"
 import ListPostComponent from "./components/ListPostComponent"
 const PostDetailStack: React.FC = () => {
   return (

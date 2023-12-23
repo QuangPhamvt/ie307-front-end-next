@@ -3,7 +3,6 @@ export const PATH = {
   SIGN_IN: "user/signIn",
   SIGN_UP: "user/signUp",
   USER_PROFILE: "user/profile",
-  USER_UPLOAD: "user/upload",
   EMAIL_AUTH: "user/email-auth",
 
   POST_ORIGIN: "post/origin",
@@ -19,4 +18,8 @@ export const PATH = {
 
   ORIGIN_USER: "user/search",
   GET_ME: "user",
+  UPLOAD_AVATAR: "user/avatar",
+  POST_LOVES: "user/love",
+  POST_FOLLOW: "user/follow",
+  USER_UPLOAD: "user/upload",
 }
