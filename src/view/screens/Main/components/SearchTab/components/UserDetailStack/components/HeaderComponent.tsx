@@ -1,12 +1,14 @@
 import { Entypo, Ionicons } from "@expo/vector-icons"
 import React from "react"
-import { Image, Text, TouchableOpacity, View } from "react-native"
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { useNavigation } from "@react-navigation/native"
 import { RootNativeStackParamList } from "~/src/view/type"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types"
-import { userDetailState } from "../../../store/atom"
+import { postFollowState, userDetailState } from "../../../store/atom"
 import { authState, userState } from "~/src/store/atom"
+import SearchStackAction from "../../SearchStack/store/hook"
+import SearchViewAction from "../../../store/hook"
 
 const HeaderHeaderComponent: React.FC = () => {
   const { state, contents } = useRecoilValue(userDetailState)
@@ -41,12 +43,12 @@ const MainHeaderComponent: React.FC = () => {
         </View>
 
         <View className="flex items-center">
-          <Text className="font-bold">{contents?.user.follows}</Text>
+          <Text className="font-bold">{contents?.user.follows || 0}</Text>
           <Text>Follower</Text>
         </View>
 
         <View className="flex items-center">
-          <Text className="font-bold">{contents?.user.following}</Text>
+          <Text className="font-bold">{contents?.user.following || 0}</Text>
           <Text>Following</Text>
         </View>
       </View>
@@ -55,23 +57,35 @@ const MainHeaderComponent: React.FC = () => {
 }
 export const BtnHeaderComponent: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootNativeStackParamList, "MainView">>()
-  const auth = useRecoilValue(authState)
-  const user = useRecoilValue(userState)
-  console.log(user.contents?.user)
-  console.log(auth.contents?.id)
+  const auth = useRecoilValue(userState)
+  const user = useRecoilValue(userDetailState)
+  const { state } = useRecoilValue(postFollowState)
+  const { onFollow } = SearchViewAction.useFollow()
+  console.log(auth.contents?.user.follows.following_id)
 
-  if (!user.contents?.user) {
+  if (!auth.contents?.user.follows.following_id) return
+  if (!user?.contents?.user) {
     return null
   }
-  if (user.contents?.user.user_id === auth.contents?.id) return null
+  if (user.contents.user.user_id === auth.contents?.user.user_id) return null
   return (
     <View className="mt-4 flex w-full flex-row space-x-1">
-      <TouchableOpacity
-        onPress={() => navigation.navigate("EditProfileView")}
-        className="flex grow items-center justify-center rounded-lg bg-[#39A7FF] p-2"
-      >
-        <Text className="font-bold text-white">Follow</Text>
-      </TouchableOpacity>
+      {state === "loading" ? (
+        <View className="flex grow items-center justify-center rounded-lg bg-[#39A7FF] p-2">
+          <ActivityIndicator color={"white"} size={16} />
+        </View>
+      ) : (
+        <TouchableOpacity
+          onPress={() => onFollow(user.contents?.user.user_id || "abc")}
+          className="flex grow items-center justify-center rounded-lg bg-[#39A7FF] p-2"
+        >
+          {auth.contents?.user.follows.following_id?.find((item) => item === user.contents?.user.user_id) ? (
+            <Text className="font-bold text-white">Following</Text>
+          ) : (
+            <Text className="font-bold text-white">Follow</Text>
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   )
 }

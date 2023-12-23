@@ -1,9 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios"
 import * as SecureToken from "expo-secure-store"
 import { Buffer } from "buffer"
-import authAction from "../view/screens/Auth/store/authAction"
-import { useResetRecoilState } from "recoil"
-import { authState } from "../store/atom"
 import { LocalStorage } from "../utilities"
 
 // Boot Instance
@@ -11,7 +8,7 @@ const axiosClient = axios.create({
   // `baseURL` will be prepended to `url` unless `url` is absolute.
   // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
   // to methods of that instance.
-  baseURL: "https://ie307.customafk.com/",
+  baseURL: "https://ecs.customafk.com/",
 })
 
 // Setup Interceptors
@@ -81,7 +78,7 @@ export { axiosClient }
 const getRefreshToken = async (accessToken: string) => {
   let access_token
   const refreshToken = await SecureToken.getItemAsync("ie307_refresh_token")
-  const response = await axios.post(`https://ie307.customafk.com/user/refresh`, { refresh: refreshToken })
+  const response = await axios.post(`https://ecs.customafk.com/user/refresh`, { refresh: refreshToken })
   const { data } = response
   await SecureToken.setItemAsync("ie307_access_token", data.data[0].access_token)
   await SecureToken.setItemAsync("ie307_refresh_token", data.data[0].refresh_token)

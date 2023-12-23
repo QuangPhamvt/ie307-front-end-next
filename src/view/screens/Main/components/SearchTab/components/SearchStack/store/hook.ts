@@ -25,7 +25,9 @@ const useGetListPost = () => {
         offset: `${offset + limit}`,
         data: [...preState.data, newData],
       }))
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
   return { onGetListPost }
 }

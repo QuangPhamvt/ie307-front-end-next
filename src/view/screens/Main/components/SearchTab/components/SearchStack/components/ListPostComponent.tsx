@@ -46,6 +46,7 @@ const Group1nthPost: React.FC<{ data: Array<{ id: string; images: Array<string> 
 const Group5nthPost: React.FC<TGroup5nthPost> = (props) => {
   const { data, direction } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
+
   return (
     <View className="flex h-auto w-screen flex-row flex-wrap">
       {direction === "right" && (
@@ -157,8 +158,7 @@ const InstaGrid: React.FC<TInstaGrid> = ({ data, onEndReached, loading = false, 
             {item.amountPosts === 5 && item.data.length === 5 && (
               <Group5nthPost data={item.data} direction={item.direction} />
             )}
-            {(item.amountPosts === 3 && item.data.length !== 3) ||
-              (item.amountPosts === 5 && item.data.length !== 5 && <Group1nthPost data={item.data} />)}
+            {item.data.length !== 5 && item.data.length !== 3 && <Group1nthPost data={item.data} />}
           </View>
         )
       })}

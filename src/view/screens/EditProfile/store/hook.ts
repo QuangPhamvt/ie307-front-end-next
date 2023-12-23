@@ -4,6 +4,8 @@ import * as FileSystem from "expo-file-system"
 import { imageUploadPayloadState, modalUploadAvatarState, showModalEditAvatarState, uploadAvatarState } from "./atom"
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 import { userApi } from "~/src/api/userApi"
+import { Alert } from "react-native"
+import authAction from "../../Auth/store/authAction"
 const imageDirectory = FileSystem.documentDirectory + "IE307/"
 const ensureDirectoryExits = async () => {
   const directoryInfo = await FileSystem.getInfoAsync(imageDirectory)
@@ -58,41 +60,49 @@ const useImageUpload = () => {
     state,
     contents: { uri },
   } = useRecoilValue(imageUploadPayloadState)
+  const { onGetMe } = authAction.getMe()
+  const alert = (message: string) =>
+    Alert.alert(message, undefined, [
+      {
+        text: "Oke",
+      },
+    ])
 
   const resetImageUploadPayload = useResetRecoilState(imageUploadPayloadState)
-  const handleImageUpload = async () => {
+  const onImageUpload = async () => {
     try {
       setUpload({
         state: "loading",
         message: null,
       })
       if (!uri) {
-        throw { data: { message: "Some thing wrong" } }
+        throw { data: { message: "Some thing wrong please choice avatar again" } }
       }
-
       const base64String = await FileSystem.readAsStringAsync(uri, {
         encoding: "base64",
         length: 9999999,
       })
       const image = "data:image/jpeg;base64," + base64String
-      // const {
-      //   data: { message },
-      // } = await userApi.uploadPost({ title, image })
-
+      const {
+        data: { data, message },
+      } = await userApi.postUploadAvatar({ avatar: image })
+      alert(message)
       setUpload({
         state: "hasValue",
         message: null,
       })
       resetImageUploadPayload()
+      await onGetMe()
     } catch (error: any) {
       console.log(error.data)
+      alert(error.data.message)
       setUpload({
         state: "hasError",
         message: error.data.message,
       })
     }
   }
-  return { handleImageUpload }
+  return { onImageUpload }
 }
 
 const editProfileAction = {
