@@ -1,14 +1,20 @@
 import React from "react"
-import { Text, TouchableOpacity, ScrollView, View } from "react-native"
-import authAction from "../../../Auth/store/authAction"
+import { useRecoilValue } from "recoil"
+import { ScrollView } from "react-native"
 import HeaderComponent from "./components/HeaderComponent"
 import ListPostComponent from "./components/ListPostComponent"
 import CommentModalComponent from "./components/CommentModal"
+import MainTabAction from "./store/hook"
+import { userState } from "~/src/store/atom"
 
 const MainTab: React.FC = () => {
-  const { onLogOutAction } = authAction.logOutAuthAction()
+  const { onGetOriginListPost } = MainTabAction.useGetOriginListPost()
+  const user = useRecoilValue(userState)
+  React.useEffect(() => {
+    onGetOriginListPost()
+  }, [user.state])
   return (
-    <ScrollView className="flex h-full bg-white">
+    <ScrollView showsVerticalScrollIndicator={false} className="flex h-full bg-white">
       <HeaderComponent />
       <ListPostComponent />
       <CommentModalComponent />

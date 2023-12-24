@@ -53,6 +53,7 @@ const useFollow = () => {
             follows: {
               ...contents.user.follows,
               following_id: newFollowing_id,
+              following: unFollow ? contents.user.follows.following - 1 : contents.user.follows.following + 1,
             },
           },
         },

@@ -10,11 +10,13 @@ import EditProfileView from "./EditProfile"
 import UploadScreen from "./Upload"
 import StoryView from "./StoryVIew"
 import NewPostScreen from "./NewPost"
-import { Text, TouchableOpacity } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 import UsernameEdit from "./UsernameEdit"
 import BioEditView from "./BioEdit"
 import { StatusBar } from "expo-status-bar"
 import UsernameEditAction from "./UsernameEdit/hook"
+import ChangePasswordView from "./ChangePassword"
+import { AntDesign } from "@expo/vector-icons"
 
 const NativeStack = createNativeStackNavigator<RootNativeStackParamList>()
 const Screens: React.FC = () => {
@@ -80,6 +82,23 @@ const Screens: React.FC = () => {
               }}
               name="Bio"
               component={BioEditView}
+            />
+            <NativeStack.Screen
+              options={({ navigation }) => ({
+                headerShown: true,
+                title: "Change Password",
+                headerTintColor: "black",
+                headerLeft: () => {
+                  return (
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                      <AntDesign name="left" size={24} />
+                    </TouchableOpacity>
+                  )
+                },
+                headerRight: () => <Text className="text-lg font-bold text-sky-500">Done</Text>,
+              })}
+              name="ChangePassword"
+              component={ChangePasswordView}
             />
           </>
         )}

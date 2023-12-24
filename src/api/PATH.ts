@@ -4,9 +4,12 @@ export const PATH = {
   SIGN_UP: "user/signUp",
   USER_PROFILE: "user/profile",
   EMAIL_AUTH: "user/email-auth",
+  SEND_EMAIL_CHANGE_PASSOWRD: "user/send-email-change-password",
+  CHANGE_PASSWORD: "user/change-password",
 
   POST_ORIGIN: "post/origin",
   POST_LIST: "post/post-list",
+  POST_LIST_MAIN: "post/list-main",
   POST_SEARCH: "post/search",
   POST_UPLOAD: "post/upload",
   CHAT_SUMMARIZED: "/chat",

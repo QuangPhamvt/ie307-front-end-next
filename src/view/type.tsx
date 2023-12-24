@@ -11,6 +11,7 @@ export type RootNativeStackParamList = {
   NewPostView: undefined
   Username: undefined
   Bio: undefined
+  ChangePassword: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
