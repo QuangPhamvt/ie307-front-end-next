@@ -4,10 +4,10 @@
 <p align="center">
   <br>
   <a href="https://github.com/QuangPhamvt/ie307-front-end-next/issues">
-    <img src="https://img.shields.io/github/issues/QuangPhamvt/ie307-front-end-next?color=0088ff&style=for-the-badge&logo=github" alt="@QuangPhamvt/ie307-front-end's issues"/>
+    <img src="https://img.shields.io/github/issues-closed/QuangPhamvt/ie307-front-end-next?color=0088ff&style=for-the-badge&logo=github" alt="@QuangPhamvt/ie307-front-end's issues"/>
   </a>
   <a href="https://github.com/QuangPhamvt/ie307-front-end-next/pulls">
-    <img src="https://img.shields.io/github/issues-pr/QuangPhamvt/ie307-front-end-next?color=0088ff&style=for-the-badge&logo=github" alt="@Josee9988/project-template's pull requests"/>
+    <img src="https://img.shields.io/github/issues-pr-closed/QuangPhamvt/ie307-front-end-next?color=0088ff&style=for-the-badge&logo=github" alt="@QuangPhamvt/project-template's pull requests"/>
   </a>
   <a href="https://github.com/QuangPhamvt/ie307-front-end-next/actions/workflows/deploy.yml">
     <img src="https://github.com/QuangPhamvt/ie307-front-end-next/actions/workflows/deploy.yml/badge.svg" alt="@QuangPhamvt/ie307-front-end-next's tests">
