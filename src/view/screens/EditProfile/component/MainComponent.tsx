@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { Text, TouchableOpacity, Touchable, View } from "react-native"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { Text, TouchableOpacity, View } from "react-native"
+import { useRecoilValue } from "recoil"
 import { userState } from "~/src/store/atom"
 import { RootNativeStackParamList } from "~/src/view/type"
 
@@ -68,6 +68,9 @@ const MainComponent = () => {
           <Text className="text-lg ">Gender</Text>
         </View>
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")} className="flex w-full flex-row">
+        <Text className="text-base font-semibold text-blue-500">Change Your Password</Text>
+      </TouchableOpacity>
     </View>
   )
 }

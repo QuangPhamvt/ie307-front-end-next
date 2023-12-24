@@ -22,4 +22,8 @@ export const postApi = {
     const url = PATH.POST_ORIGIN
     return axiosClient.post(url, payload)
   },
+  postListMain: <T extends { user_id: Array<string> }>(payload: T): Promise<TPostOriginPostResApi> => {
+    const url = PATH.POST_LIST_MAIN
+    return axiosClient.post(url, payload)
+  },
 }

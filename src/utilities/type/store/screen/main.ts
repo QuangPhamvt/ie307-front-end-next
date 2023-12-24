@@ -57,6 +57,29 @@ type TGetOriginListPostState = {
     } | null
   }>
 }
+type TGetPostListMainState = {
+  state: TState
+  message: string | null
+  data: Array<{
+    id: string
+    title: string
+    images: Array<string>
+    loves: number
+    comments: number
+    create_at: Date
+    author_id: string
+    avatar: string | null
+    email: string
+    comment: {
+      author_id: string
+      avatar: string | null
+      email: string
+      context: string
+      loves: 0
+      create_at: Date
+    } | null
+  }>
+}
 type TListPostSearchState = {
   state: TState
   message: string | null
@@ -78,5 +101,6 @@ export {
   TToggleSearchInputState,
   TShowCommentPostDetailState,
   TGetOriginListPostState,
+  TGetPostListMainState,
   TListPostSearchState,
 }

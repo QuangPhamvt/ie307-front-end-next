@@ -1,4 +1,4 @@
-import { Entypo, Ionicons } from "@expo/vector-icons"
+import { Entypo, Feather, Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
@@ -27,9 +27,13 @@ const MainHeaderComponent: React.FC = () => {
     <View className="flex w-full flex-row items-start bg-white">
       <View className="flex space-y-2">
         <TouchableOpacity onPress={() => navigation.navigate("StoryView")}>
-          <View className="relative aspect-square h-20 rounded-full bg-slate-200">
-            {contents?.user.avatar && (
+          <View className="relative aspect-square h-20 rounded-full border-[0.5px] border-zinc-400">
+            {contents?.user.avatar ? (
               <Image className="h-full w-full rounded-full" source={{ uri: contents?.user.avatar || "" }} />
+            ) : (
+              <View className="flex h-20 w-20 items-center justify-center rounded-full ">
+                <Feather name="user" className="" size={52} />
+              </View>
             )}
             <View className="absolute -bottom-1 -right-1 aspect-square rounded-full">
               <Ionicons name="md-add-circle-sharp" size={28} color={"#39A7FF"} className="text-white" />

@@ -10,6 +10,7 @@ import { SearchViewStackParamList } from "~/src/view/type"
 import PostDetailAction from "../store/hook"
 import { userState } from "~/src/store/atom"
 import { useDoubleTap } from "~/src/utilities/hook"
+import dayjs from "dayjs"
 
 interface IItemPostComponent {
   author_id: string
@@ -57,11 +58,15 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
             <Text className="font-bold">{email?.split("@")[0]}</Text>
           </TouchableOpacity>
           {contents?.user?.follows?.following_id &&
-            contents.user.follows.following_id.some((item) => item == author_id) && (
-              <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
-                <Text className="font-medium text-white">Follow</Text>
-              </TouchableOpacity>
-            )}
+          contents.user.follows.following_id.some((item) => item == author_id) ? (
+            <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
+              <Text className="font-medium text-white">Following</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
+              <Text className="font-medium text-white">Follow</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <View className="aspect-square w-full border-[1px] border-solid border-black bg-slate-200">
@@ -92,7 +97,7 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
         <Text>
           <Text className="font-bold">quangquang___</Text> To day is lucky day
         </Text>
-        <Text className="text-xs">{create_at.toString()}</Text>
+        <Text className="text-xs">{dayjs(create_at).format("MMMM DD, YYYY")}</Text>
       </View>
     </View>
   )
