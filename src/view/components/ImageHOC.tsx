@@ -4,17 +4,18 @@ import { TouchableOpacity, Image, ActivityIndicator, GestureResponderEvent, View
 type TImageHOC = {
   className?: string
   uri: string
+  isCircle?: boolean
   onPress?: ((event: GestureResponderEvent) => void) | undefined
 }
 const ImageHoc: React.FC<TImageHOC> = (props) => {
-  const { className, uri, onPress } = props
+  const { className = "", isCircle = false, uri, onPress } = props
   const [imageError, setImageError] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   if (!uri) return null
   return (
-    <View className="w-full h-full">
+    <View className={isCircle ? "h-full w-full rounded-full" : "h-full w-full"}>
       <Image
-        className={"h-full w-full"}
+        className={isCircle ? "h-full w-full rounded-full" : "h-full w-full"}
         source={{ uri }}
         onError={(e) => {
           setLoading(false)

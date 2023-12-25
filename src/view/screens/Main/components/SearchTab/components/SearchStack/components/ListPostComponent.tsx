@@ -28,7 +28,7 @@ const Group1nthPost: React.FC<{ data: Array<{ id: string; images: Array<string> 
   const { data } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
   return (
-    <View className="flex h-auto w-screen flex-row flex-wrap">
+    <View className="flex flex-row flex-wrap w-screen h-auto">
       {data.map((item) => {
         return (
           <TouchableOpacity
@@ -48,7 +48,7 @@ const Group5nthPost: React.FC<TGroup5nthPost> = (props) => {
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
 
   return (
-    <View className="flex h-auto w-screen flex-row flex-wrap">
+    <View className="flex flex-row flex-wrap w-screen h-auto">
       {direction === "right" && (
         <TouchableOpacity
           onPress={() => navigation.navigate("PostDetailStack", { post_id: data[3].id })}
@@ -98,7 +98,7 @@ const Group3nthPost: React.FC<TGroup3nthPost> = (props) => {
   const { data, direction } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
   return (
-    <View className="flex w-full flex-row flex-wrap ">
+    <View className="flex flex-row flex-wrap w-full ">
       {direction === "right" && (
         <TouchableOpacity
           onPress={() => navigation.navigate("PostDetailStack", { post_id: data[2].id })}

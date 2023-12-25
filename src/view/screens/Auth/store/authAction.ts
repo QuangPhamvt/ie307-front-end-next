@@ -12,6 +12,7 @@ import { listPostSearchState } from "../../Main/components/SearchTab/components/
 const logInAction = () => {
   const setAuthState = useSetRecoilState(authState)
   const { email, password } = useRecoilValue(logInFormState)
+  const resetForm = useResetRecoilState(logInFormState)
   const alert = (message: string) => Alert.alert(message)
   const onLogInAction = async () => {
     try {
@@ -22,7 +23,6 @@ const logInAction = () => {
       })
       if (!email || !password) throw { data: { message: "Email or password is empty" } }
       if (!checkIsMail(email)) throw { data: { message: "Email not verify" } }
-      console.log("signIn")
       const { data } = await authApi.postSignIn({ email, password })
       const { access_token, refresh_token } = data.data[0]
       const { id, username, avatar } = encodeJWT(access_token)
@@ -36,6 +36,7 @@ const logInAction = () => {
     } catch (error: any) {
       const { message } = error.data
       setAuthState({ state: "hasError", message, contents: null })
+      resetForm()
       alert(message)
     }
   }

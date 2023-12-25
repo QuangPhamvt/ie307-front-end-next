@@ -26,12 +26,12 @@ const ItemImageComponent: React.FC<{ id: string; uri: string }> = ({ id, uri }) 
         originImage.data?.uri === uri ? "opacity-40 backdrop-opacity-25" : ""
       }`}
     >
-      <View className="relative aspect-square w-full">
-        <View className="absolute right-1 top-1 z-50">
+      <View className="relative w-full aspect-square">
+        <View className="absolute z-50 right-1 top-1">
           {!isChoice && <View className="aspect-square h-4 rounded-full border-[1px] border-black bg-black" />}
           {isChoice && <AntDesign name="checkcircle" className="" size={14} color={"#0C356A"} />}
         </View>
-        <Image source={{ uri }} className="h-full w-full" />
+        <ImageHoc uri={uri} />
       </View>
     </TouchableOpacity>
   )
@@ -62,7 +62,7 @@ const ListImageComponent: React.FC = () => {
         if (isCloseToBottom(nativeEvent)) console.log("ScrollView")
       }}
     >
-      <View className="flex w-full flex-row flex-wrap">
+      <View className="flex flex-row flex-wrap w-full">
         {getImageLib.data &&
           getImageLib.data.map((item) => {
             return <ItemImageComponent key={item.id} id={item.id} uri={item.uri} />
@@ -76,11 +76,11 @@ const ListImageComponent: React.FC = () => {
 const MainComponent: React.FC = () => {
   const getOriginImage = useRecoilValue(originImageState)
   return (
-    <View className="flex w-full items-center justify-center space-y-4">
-      <View className="h-96 w-4/5 bg-gray-400">
+    <View className="flex items-center justify-center w-full space-y-4">
+      <View className="w-4/5 bg-gray-400 h-96">
         <ImageHoc uri={getOriginImage.data?.uri || ""} className="" />
       </View>
-      <View className="mb-2 flex w-full flex-row items-center justify-between px-2">
+      <View className="flex flex-row items-center justify-between w-full px-2 mb-2">
         <View className="flex flex-row items-center space-x-2">
           <Text className="text-lg font-bold text-white">Recents</Text>
           <Text className="text-lg font-bold text-gray-500">Drafts</Text>

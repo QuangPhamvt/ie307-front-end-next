@@ -3,6 +3,7 @@ import React from "react"
 import { View, TouchableOpacity, Image } from "react-native"
 import { useRecoilValue } from "recoil"
 import { userDetailState } from "../../../store/atom"
+import ImageHoc from "~/src/view/components/ImageHOC"
 const ListPostMainComponent: React.FC = () => {
   const [status, setStatus] = React.useState<"Post" | "Story" | "Photo">("Post")
   const { state, contents } = useRecoilValue(userDetailState)
@@ -40,7 +41,7 @@ const ListPostMainComponent: React.FC = () => {
           contents.posts.map((item) => {
             return (
               <View key={item.post_id} className="aspect-square h-[30%] w-1/3 ">
-                <Image className="w-full h-full" source={{ uri: item ? item.images[0] : "abc" }} />
+                <ImageHoc uri={item ? item.images[0] : "abc"} />
               </View>
             )
           })}

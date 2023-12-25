@@ -4,6 +4,7 @@ import { postUploadPostState, uploadPostState } from "../Upload/store"
 import { modalCaptionState } from "./store/atom"
 import ModalCaptionComponent from "./components/ModalCaption"
 import newPostAction from "./store/hook"
+import ImageHoc from "../../components/ImageHOC"
 
 const NewPostScreen: React.FC = () => {
   const { title, images } = useRecoilValue(uploadPostState)
@@ -15,11 +16,11 @@ const NewPostScreen: React.FC = () => {
       <ModalCaptionComponent />
       <View className="flex w-full space-y-4">
         <ScrollView horizontal={true} className="w-full">
-          <View className="flex w-full flex-row px-4">
+          <View className="flex flex-row w-full px-4">
             {images.map((item) => {
               return (
-                <View key={item.id} className="h-72 w-56">
-                  <Image source={{ uri: item.image }} className="h-full w-full" />
+                <View key={item.id} className="w-56 h-72">
+                  <ImageHoc uri={item.image} />
                 </View>
               )
             })}
@@ -30,7 +31,7 @@ const NewPostScreen: React.FC = () => {
         </TouchableOpacity>
         <View className="w-full border-b-[0.5px] border-gray-500" />
         <TouchableOpacity onPress={onUploadPost} className="px-2">
-          <View className="flex items-center justify-center rounded-lg bg-sky-500 py-4">
+          <View className="flex items-center justify-center py-4 rounded-lg bg-sky-500">
             {state === "loading" ? (
               <ActivityIndicator color={"white"} size={"small"} />
             ) : (

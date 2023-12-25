@@ -1,6 +1,6 @@
 import { AntDesign, Fontisto, Ionicons } from "@expo/vector-icons"
 import React from "react"
-import { View, Text, TouchableOpacity, Image } from "react-native"
+import { View, Text, TouchableOpacity, Image, ScrollView, NativeScrollEvent } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { getPostListMainState, showCommentModalState } from "../store/atom"
 import dayjs from "dayjs"
@@ -10,6 +10,7 @@ import { useDoubleTap } from "~/src/utilities/hook"
 import { useNavigation } from "@react-navigation/native"
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs"
 import { MainBottomTabParamList } from "~/src/view/type"
+import ImageHoc from "~/src/view/components/ImageHOC"
 
 interface IPostComponent {
   id: string
@@ -27,6 +28,7 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
   const navigation = useNavigation<BottomTabNavigationProp<MainBottomTabParamList, "HomeView">>()
   const setShowCommentModal = useSetRecoilState(showCommentModalState)
   const [amountLoves, setAmountLoves] = React.useState<number>(loves)
+  const [imgActive, setImgActive] = React.useState<number>(0)
   const { contents } = useRecoilValue(userState)
   const { onPostLove } = PostDetailAction.usePostLove()
   const { handleDoubleTap } = useDoubleTap(() => {
@@ -34,11 +36,17 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
     if (contents?.user.post_loves.find((item) => item === id)) setAmountLoves(amountLoves - 1)
     else setAmountLoves(amountLoves + 1)
   }, 500)
+  const onChange = (nativeEvent: NativeScrollEvent) => {
+    if (nativeEvent) {
+      const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width)
+      if (slide != imgActive) setImgActive(slide)
+    }
+  }
   return (
-    <View className="flex w-full pt-2">
-      <View className="flex flex-row items-center space-x-2 p-2">
-        <View className="aspect-square h-8 rounded-full bg-gray-600">
-          {avatar && <Image className="h-full w-full rounded-full" source={{ uri: avatar }} />}
+    <View className="relative flex w-full pt-2">
+      <View className="flex flex-row items-center p-2 space-x-2">
+        <View className="h-8 bg-gray-600 rounded-full aspect-square">
+          {avatar && <Image className="w-full h-full rounded-full" source={{ uri: avatar }} />}
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -48,10 +56,23 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
           <Text className="font-bold">{email?.split("@")[0]}</Text>
         </TouchableOpacity>
       </View>
-      <View className="aspect-square w-full bg-slate-200">
-        <Image className="h-full w-full" source={{ uri: images[0] }} />
-      </View>
-      <View className="flex flex-row items-start space-x-4 p-2">
+      <ScrollView
+        onScroll={({ nativeEvent }) => {
+          onChange(nativeEvent)
+        }}
+        pagingEnabled
+        scrollEventThrottle={400}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        className="w-full aspect-square"
+      >
+        {images.map((item, index) => (
+          <View key={index} className="h-full aspect-square bg-slate-200">
+            <ImageHoc uri={item} />
+          </View>
+        ))}
+      </ScrollView>
+      <View className="flex flex-row items-start p-2 space-x-4">
         <TouchableOpacity
           onPress={() => {
             handleDoubleTap()
@@ -71,20 +92,29 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
           <Fontisto name="comment" size={26} />
         </TouchableOpacity>
       </View>
-      <View className="mt-1 flex space-y-1 px-2">
+      <View className="flex px-2 mt-1 space-y-1">
         <Text className="font-bold">{loves} likes</Text>
         <Text>
           <Text className="font-bold">quangquang___</Text> To day is lucky day
         </Text>
         <Text className="text-xs">{dayjs(create_at).format("MMMM DD, YYYY")}</Text>
       </View>
+      {images.length > 1 && (
+        <View className="absolute flex items-center justify-center right-4 top-16">
+          <View className="flex w-8 items-center justify-center rounded-full bg-zinc-600 py-[0.5px]">
+            <Text className="text-xs text-white">
+              {imgActive + 1}/{images.length}
+            </Text>
+          </View>
+        </View>
+      )}
     </View>
   )
 }
 const ListPostComponent: React.FC = () => {
   const post = useRecoilValue(getPostListMainState)
   return (
-    <View className="flex w-full flex-col">
+    <View className="flex flex-col w-full">
       {post.data.map((item) => {
         return (
           <PostComponent
