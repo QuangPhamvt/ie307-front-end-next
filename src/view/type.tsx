@@ -25,6 +25,10 @@ export type MainBottomTabParamList = {
   NotificationView: undefined
   ProfileView: NavigatorScreenParams<ProfileViewStackParamList>
 }
+export type ChangePasswordStackParamList = {
+  SendEmailChangePassword: undefined
+  SendChangePassword: undefined
+}
 export type SignUpStackParamList = {
   EmailStack: undefined
   ConfirmStack: undefined
@@ -51,6 +55,10 @@ export type AuthStackProps<T extends keyof AuthStackParamList> = CompositeScreen
 >
 export type MainBottomTabProps<T extends keyof MainBottomTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<MainBottomTabParamList, T>,
+  RootNativeStackViewProps<keyof RootNativeStackParamList>
+>
+export type ChangePasswordStackProps<T extends keyof ChangePasswordStackParamList> = CompositeScreenProps<
+  StackScreenProps<ChangePasswordStackParamList, T>,
   RootNativeStackViewProps<keyof RootNativeStackParamList>
 >
 export type SignUpStackProps<T extends keyof SignUpStackParamList> = CompositeScreenProps<

@@ -12,9 +12,9 @@ const FormComponent: React.FC = () => {
   const auth = useRecoilValue(authState)
   const { onLogInAction } = authAction.logInAction()
   return (
-    <KeyboardAvoidingView behavior="padding" className="flex h-80 items-center justify-center">
-      <View className="my-4 flex h-fit w-full items-center justify-center space-y-2">
-        <View className="flex h-auto w-full flex-row items-center rounded-xl border border-solid border-gray-600 px-2 py-3">
+    <KeyboardAvoidingView behavior="padding" className="flex items-center justify-center h-80">
+      <View className="flex items-center justify-center w-full my-4 space-y-2 h-fit">
+        <View className="flex flex-row items-center w-full h-auto px-2 py-3 border border-gray-600 border-solid rounded-xl">
           <TextInput
             value={getLogInFormState?.email ? getLogInFormState.email : ""}
             onChangeText={(email) => setLogInFormState((preState) => ({ ...preState, email }))}
@@ -22,7 +22,7 @@ const FormComponent: React.FC = () => {
             className="flex w-full "
           />
         </View>
-        <View className="flex w-full flex-row items-center justify-between rounded-xl border border-solid border-gray-600 px-2 py-3">
+        <View className="flex flex-row items-center justify-between w-full px-2 py-3 border border-gray-600 border-solid rounded-xl">
           <TextInput
             onTouchStart={() => setIsHidePassword(true)}
             value={!!getLogInFormState?.password ? getLogInFormState.password : ""}
@@ -44,7 +44,7 @@ const FormComponent: React.FC = () => {
           {auth.state === "loading" && <Feather name="loader" size={24} />}
           {auth.state !== "loading" && <Text className="text-lg font-medium text-white">Log in</Text>}
         </TouchableOpacity>
-        <View className="flex w-full items-center justify-center py-3">
+        <View className="flex items-center justify-center w-full py-3">
           <Text className="text-sm font-bold text-gray-700">Forgot password?</Text>
         </View>
       </View>

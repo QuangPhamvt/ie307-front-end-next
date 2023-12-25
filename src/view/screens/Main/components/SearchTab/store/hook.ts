@@ -32,8 +32,6 @@ const useFollow = () => {
         follow: string | null = null
       if (following_id.find((item) => item === user_id)) unFollow = user_id
       else follow = user_id
-      console.log("unFollow: ", unFollow)
-      console.log("follow: ", follow)
       setPostFollow({ state: "loading", message: null })
       await userApi.postFollow({ unFollow, follow })
       let newFollowing_id: Array<string>

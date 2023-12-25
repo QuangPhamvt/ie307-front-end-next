@@ -3,6 +3,7 @@ import React from "react"
 import { Text, View, ScrollView, TouchableOpacity, Image } from "react-native"
 import { useRecoilValue, useResetRecoilState } from "recoil"
 import { userState } from "~/src/store/atom"
+import ImageHoc from "~/src/view/components/ImageHOC"
 const StoryMainComponent: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true)
   return (
@@ -69,7 +70,7 @@ const ListPostMainComponent: React.FC = () => {
           contents.posts.map((item) => {
             return (
               <View key={item.post_id} className="aspect-square h-[30%] w-1/3 ">
-                <Image className="w-full h-full" source={{ uri: item ? item.images[0] : "abc" }} />
+                <ImageHoc uri={item ? item.images[0] : "abc"} />
               </View>
             )
           })}
