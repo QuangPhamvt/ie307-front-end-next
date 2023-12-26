@@ -1,31 +1,44 @@
 import { Entypo, Feather } from "@expo/vector-icons"
 import React from "react"
-import { Text, View, ScrollView, Image } from "react-native"
+import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native"
 import uploadImageStoryAction from "../store/hook"
-import { useRecoilValue } from "recoil"
-import { listImageLibraryStoryState } from "../store/atom"
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { listImageLibraryStoryState, originImageStoryState } from "../store/atom"
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { StoryViewStackParamList } from "~/src/view/type"
 
 const ItemImageComponent: React.FC<{ id: string; uri: string }> = ({ id, uri }) => {
+  const navigator = useNavigation<StackNavigationProp<StoryViewStackParamList, "SelectStoryStack">>()
+  const setOriginImage = useSetRecoilState(originImageStoryState)
   return (
-    <View className="w-1/3 border-[0.5px] border-black bg-white">
+    <TouchableOpacity
+      onPress={() => {
+        navigator.navigate("UploadStoryStack")
+        setOriginImage({ data: { id, uri } })
+      }}
+      className="w-1/3 border-[0.5px] border-black bg-white"
+    >
       <View style={{ aspectRatio: "3 / 5" }} className="w-full">
         <Image source={{ uri }} className="h-full w-full object-contain" />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 const ListImageComponent: React.FC = () => {
   const { data } = useRecoilValue(listImageLibraryStoryState)
+  const { onImageCameraToUploadStory } = uploadImageStoryAction.useImageCameraToUploadStory()
+  const originImage = useRecoilValue(originImageStoryState)
   if (!data) return null
   return (
     <ScrollView className="h-fit w-full bg-black">
       <View className="flex w-screen flex-row flex-wrap">
-        <View className="w-1/3 border-[0.5px] border-black bg-black">
+        <TouchableOpacity onPress={onImageCameraToUploadStory} className="w-1/3 border-[0.5px] border-black bg-black">
           <View style={{ aspectRatio: "3 / 5" }} className="relative flex w-full items-center justify-center">
             <Feather name="camera" size={28} color={"white"} />
           </View>
           <Text className="absolute bottom-2 left-2 font-bold text-white">Camera</Text>
-        </View>
+        </TouchableOpacity>
         {data.map(({ id, uri }) => {
           return <ItemImageComponent id={id} uri={uri} key={id} />
         })}

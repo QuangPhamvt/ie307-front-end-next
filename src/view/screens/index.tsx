@@ -17,6 +17,7 @@ import { StatusBar } from "expo-status-bar"
 import UsernameEditAction from "./UsernameEdit/hook"
 import ChangePasswordView from "./ChangePassword"
 import { AntDesign } from "@expo/vector-icons"
+import NewStoryView from "./NewStoryView"
 
 const NativeStack = createNativeStackNavigator<RootNativeStackParamList>()
 const Screens: React.FC = () => {
@@ -100,6 +101,7 @@ const Screens: React.FC = () => {
               name="ChangePassword"
               component={ChangePasswordView}
             />
+            <NativeStack.Screen name="NewStoryView" component={NewStoryView} />
           </>
         )}
       </NativeStack.Navigator>

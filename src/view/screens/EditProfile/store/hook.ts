@@ -6,6 +6,7 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 import { userApi } from "~/src/api/userApi"
 import { Alert } from "react-native"
 import authAction from "../../Auth/store/authAction"
+import { getImageInDevice } from "~/src/utilities"
 const imageDirectory = FileSystem.documentDirectory + "IE307/"
 const ensureDirectoryExits = async () => {
   const directoryInfo = await FileSystem.getInfoAsync(imageDirectory)
@@ -17,7 +18,6 @@ const ensureDirectoryExits = async () => {
 const useGetImageUpload = () => {
   const setImageUploadPayloadState = useSetRecoilState(imageUploadPayloadState)
   const setModalUploadAvatar = useSetRecoilState(modalUploadAvatarState)
-  const setModalEditAvatar = useSetRecoilState(showModalEditAvatarState)
   const saveImage = async (uri: string) => {
     await ensureDirectoryExits()
     const fileName = new Date().getTime() + ".jpg"
@@ -33,19 +33,7 @@ const useGetImageUpload = () => {
   }
 
   const onSetImageUploadPayloadState = async (useLibrary: boolean) => {
-    let result
-    const option: ImagePicker.ImagePickerOptions = {
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [5, 3],
-      quality: 0.75,
-    }
-    if (useLibrary) {
-      result = await ImagePicker.launchImageLibraryAsync(option)
-    } else {
-      await ImagePicker.requestCameraPermissionsAsync()
-      result = await ImagePicker.launchCameraAsync(option)
-    }
+    let result = await getImageInDevice(useLibrary)
     if (!result.canceled) {
       saveImage(result.assets[0].uri)
       setModalUploadAvatar(() => true)

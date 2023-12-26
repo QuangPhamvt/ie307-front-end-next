@@ -7,11 +7,12 @@ export type RootNativeStackParamList = {
   MainView: NavigatorScreenParams<MainBottomTabParamList>
   EditProfileView: undefined
   UploadView: undefined
-  StoryView: undefined
+  StoryView: NavigatorScreenParams<StoryViewStackParamList>
   NewPostView: undefined
   Username: undefined
   Bio: undefined
-  ChangePassword: undefined
+  ChangePassword: NavigatorScreenParams<ChangePasswordStackParamList>
+  NewStoryView: undefined
 }
 export type AuthStackParamList = {
   LogInStack: undefined
@@ -28,6 +29,10 @@ export type MainBottomTabParamList = {
 export type ChangePasswordStackParamList = {
   SendEmailChangePassword: undefined
   SendChangePassword: undefined
+}
+export type StoryViewStackParamList = {
+  SelectStoryStack: undefined
+  UploadStoryStack: undefined
 }
 export type SignUpStackParamList = {
   EmailStack: undefined
@@ -59,6 +64,10 @@ export type MainBottomTabProps<T extends keyof MainBottomTabParamList> = Composi
 >
 export type ChangePasswordStackProps<T extends keyof ChangePasswordStackParamList> = CompositeScreenProps<
   StackScreenProps<ChangePasswordStackParamList, T>,
+  RootNativeStackViewProps<keyof RootNativeStackParamList>
+>
+export type StoryViewStackProps<T extends keyof StoryViewStackParamList> = CompositeScreenProps<
+  StackScreenProps<StoryViewStackParamList, T>,
   RootNativeStackViewProps<keyof RootNativeStackParamList>
 >
 export type SignUpStackProps<T extends keyof SignUpStackParamList> = CompositeScreenProps<
