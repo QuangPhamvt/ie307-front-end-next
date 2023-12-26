@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
 import React from "react"
-import { View, TouchableOpacity, Image } from "react-native"
+import { View, TouchableOpacity } from "react-native"
 import { useRecoilValue } from "recoil"
 import { userDetailState } from "../../../store/atom"
 import ImageHoc from "~/src/view/components/ImageHOC"
@@ -8,7 +8,7 @@ const ListPostMainComponent: React.FC = () => {
   const [status, setStatus] = React.useState<"Post" | "Story" | "Photo">("Post")
   const { state, contents } = useRecoilValue(userDetailState)
   return (
-    <View className="flex mt-4 ">
+    <View className="mt-4 flex ">
       <View className="w-full border-b-[1px] border-gray-200" />
       <View className="flex w-full flex-row border-b-[1px] border-gray-200">
         <TouchableOpacity
@@ -51,7 +51,7 @@ const ListPostMainComponent: React.FC = () => {
 }
 const MainComponent: React.FC = () => {
   return (
-    <View className="flex w-full mt-4 h-72">
+    <View className="mt-4 flex h-72 w-full">
       <ListPostMainComponent />
     </View>
   )

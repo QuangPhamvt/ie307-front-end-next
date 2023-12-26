@@ -10,8 +10,8 @@ const HeaderComponent: React.FC = () => {
     <View className="flex space-y-4 border-b-[1px] border-gray-400 bg-gray-300 py-2">
       <TouchableOpacity onPress={() => navigation.navigate("StoryView")}>
         <View className="flex flex-row px-2">
-          <View className="relative h-20 rounded-full aspect-square bg-slate-200">
-            <View className="absolute rounded-full -bottom-1 -right-1 aspect-square">
+          <View className="relative aspect-square h-20 rounded-full bg-slate-200">
+            <View className="absolute -bottom-1 -right-1 aspect-square rounded-full ">
               <Ionicons name="md-add-circle-sharp" size={28} color={"#39A7FF"} className="text-white" />
             </View>
           </View>
