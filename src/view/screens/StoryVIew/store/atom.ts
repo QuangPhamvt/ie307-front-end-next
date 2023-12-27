@@ -15,10 +15,21 @@ type TListImageLibraryStoryState = {
       }[]
     | null
 }
+type TUploadStoryState = {
+  state: TState
+  message: string | null
+}
 export const originImageStoryState = atom<TOriginImageStoryState>({
   key: "originImageStoryStateAtom",
   default: {
     data: null,
+  },
+})
+export const uploadStoryState = atom<TUploadStoryState>({
+  key: "uploadStoryStateAtom",
+  default: {
+    state: "idle",
+    message: null,
   },
 })
 export const listImageLibraryStoryState = atom<TListImageLibraryStoryState>({

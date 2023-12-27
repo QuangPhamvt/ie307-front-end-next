@@ -45,7 +45,7 @@ export function checkIsMail(mail: string) {
 export async function imageToBase64(uri: string) {
   const base64String = await FileSystem.readAsStringAsync(uri, {
     encoding: "base64",
-    length: 99999999999,
+    length: 9999999999999,
   })
   return "data:image/jpeg;base64," + base64String
 }

@@ -41,4 +41,10 @@ export const userApi = {
     const url = PATH.USER_UPLOAD
     return axiosClient.post(url, payload)
   },
+  postUploadStory: <T extends { image: string }>(
+    payload: T,
+  ): Promise<AxiosResponse<{ message: string; data: Array<{}> }>> => {
+    const url = PATH.UPLOAD_STORY
+    return axiosClient.post(url, payload)
+  },
 }

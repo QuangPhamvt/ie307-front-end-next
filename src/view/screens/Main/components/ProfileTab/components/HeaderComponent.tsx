@@ -12,6 +12,8 @@ import ImageHoc from "~/src/view/components/ImageHOC"
 const HeaderHeaderComponent: React.FC = () => {
   const setShowModalSetting = useSetRecoilState(showModalSettingState)
   const { contents } = useRecoilValue(userState)
+  console.log(contents?.stories)
+
   return (
     <View className="flex h-10 flex-row items-center justify-between ">
       <Text className="text-2xl font-bold">{contents?.user.username}</Text>
@@ -27,8 +29,23 @@ const MainHeaderComponent: React.FC = () => {
   return (
     <View className="flex w-full flex-row items-start bg-white">
       <View className="flex space-y-2">
-        <TouchableOpacity onPress={() => navigation.navigate("StoryView")}>
-          <View className="relative aspect-square h-20 rounded-full border-[0.5px] border-zinc-400">
+        <View className="relative aspect-square h-20 rounded-full border-[0.5px] border-zinc-400">
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("NewStoryView", {
+                user_id: contents?.user.user_id || "",
+                avatar: contents?.user.avatar || null,
+                email: contents?.user.email || "",
+                image: contents?.stories[0].image,
+                create_at: contents?.stories[0].create_at,
+              })
+            }
+            className={
+              contents?.stories && contents.stories.length > 0
+                ? "rounded-full border-4 border-solid border-pink-500/60"
+                : ""
+            }
+          >
             {contents?.user.avatar ? (
               <ImageHoc uri={contents?.user.avatar || ""} isCircle={true} />
             ) : (
@@ -36,13 +53,15 @@ const MainHeaderComponent: React.FC = () => {
                 <Feather name="user" className="" size={52} />
               </View>
             )}
-            <View className="absolute -bottom-1 -right-1 flex aspect-square w-[30px] items-center justify-center rounded-full bg-white">
+          </TouchableOpacity>
+          <View className="absolute -bottom-1 -right-1 flex aspect-square w-[30px] items-center justify-center rounded-full bg-white">
+            <TouchableOpacity onPress={() => navigation.navigate("StoryView", { screen: "SelectStoryStack" })}>
               <View className="mb-[1px] ml-[1px] flex items-center justify-center">
                 <Ionicons name="md-add-circle-sharp" size={29} color={"#39A7FF"} />
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
         <View className="">
           <Text className="w-34 line-clamp-1 font-bold">{contents?.user.username || "Not have to see"}</Text>
           {contents?.user?.bio && <Text className="font-normal">{contents?.user.bio}</Text>}

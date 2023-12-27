@@ -25,4 +25,5 @@ export const PATH = {
   POST_LOVES: "user/love",
   POST_FOLLOW: "user/follow",
   USER_UPLOAD: "user/upload",
+  UPLOAD_STORY: "stories/upload",
 }

@@ -12,7 +12,13 @@ export type RootNativeStackParamList = {
   Username: undefined
   Bio: undefined
   ChangePassword: NavigatorScreenParams<ChangePasswordStackParamList>
-  NewStoryView: undefined
+  NewStoryView: {
+    user_id: string
+    avatar: string | null
+    email: string
+    image?: string
+    create_at?: string
+  }
 }
 export type AuthStackParamList = {
   LogInStack: undefined

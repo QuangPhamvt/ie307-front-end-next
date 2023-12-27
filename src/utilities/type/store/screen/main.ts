@@ -55,6 +55,13 @@ type TGetOriginListPostState = {
       loves: 0
       create_at: Date
     } | null
+    stories: [
+      {
+        id: string
+        image: string
+        create_at: string
+      },
+    ]
   }>
 }
 type TGetPostListMainState = {

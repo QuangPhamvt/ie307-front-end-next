@@ -26,6 +26,13 @@ type TGetMeResApi = AxiosResponse<{
           create_at: string
         },
       ]
+      stories: [
+        {
+          id: string
+          image: string
+          create_at: string
+        },
+      ]
     },
   ]
 }>
