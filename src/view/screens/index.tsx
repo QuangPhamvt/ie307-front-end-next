@@ -29,8 +29,6 @@ const Screens: React.FC = () => {
   React.useEffect(() => {
     if (state === "hasValue") onGetMe()
   }, [state])
-  console.log(user.contents?.user.follows.following_id)
-
   return (
     <>
       <StatusBar />

@@ -6,11 +6,12 @@ import CommentModalComponent from "./CommentComponent"
 import { getOriginListPostState, showCommentPostDetailState } from "../store/atom"
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { SearchViewStackParamList } from "~/src/view/type"
+import { RootNativeStackParamList, SearchViewStackParamList } from "~/src/view/type"
 import PostDetailAction from "../store/hook"
 import { userState } from "~/src/store/atom"
 import { useDoubleTap } from "~/src/utilities/hook"
 import dayjs from "dayjs"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
 interface IItemPostComponent {
   author_id: string
@@ -28,10 +29,12 @@ interface IItemPostComponent {
     loves: 0
     create_at: Date
   } | null
+  stories: [{ id: string; image: string; create_at: string }]
 }
 const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
-  const { author_id, post_id, avatar, loves, create_at, images, email } = props
+  const { author_id, post_id, avatar, loves, create_at, images, email, stories } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "PostDetailStack">>()
+  const goToNewStoryView = useNavigation<NativeStackNavigationProp<RootNativeStackParamList, "MainView">>()
   const [amountLoves, setAmountLoves] = React.useState<number>(loves)
   const setShowModal = useSetRecoilState(showCommentPostDetailState)
   const { contents } = useRecoilValue(userState)
@@ -45,7 +48,25 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
     <View className="flex w-full border-b-[1px] border-gray-400 pb-2">
       <View className="flex flex-row items-center space-x-2 p-2">
         {avatar ? (
-          <Image source={{ uri: avatar }} className="aspect-square h-8 rounded-full bg-gray-500" />
+          <TouchableOpacity
+            onPress={() => {
+              if (stories.length > 0)
+                goToNewStoryView.navigate("NewStoryView", {
+                  user_id: author_id,
+                  avatar,
+                  email: email || "",
+                  image: stories[0].image,
+                  create_at: stories[0].create_at,
+                })
+            }}
+          >
+            <Image
+              source={{ uri: avatar }}
+              className={`aspect-square h-8 rounded-full  ${
+                stories.length > 0 && "border-2 border-pink-500/60 bg-gray-500"
+              }`}
+            />
+          </TouchableOpacity>
         ) : (
           <View className="aspect-square h-8 rounded-full bg-gray-500" />
         )}
@@ -129,6 +150,7 @@ const ListPostComponent: React.FC = () => {
                 loves={post.loves}
                 create_at={post.create_at}
                 comment={post.comment}
+                stories={post.stories}
               />
             )
           })}

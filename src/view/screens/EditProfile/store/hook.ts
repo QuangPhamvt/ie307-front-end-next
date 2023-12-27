@@ -1,7 +1,5 @@
-import React from "react"
-import * as ImagePicker from "expo-image-picker"
 import * as FileSystem from "expo-file-system"
-import { imageUploadPayloadState, modalUploadAvatarState, showModalEditAvatarState, uploadAvatarState } from "./atom"
+import { imageUploadPayloadState, modalUploadAvatarState, uploadAvatarState } from "./atom"
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 import { userApi } from "~/src/api/userApi"
 import { Alert } from "react-native"

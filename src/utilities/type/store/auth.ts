@@ -32,6 +32,13 @@ type TUserState = {
         create_at: string
       },
     ]
+    stories: [
+      {
+        id: string
+        image: string
+        create_at: string
+      },
+    ]
   } | null
 }
 export { TAuthState, TUserState }

@@ -1,17 +1,22 @@
-import { Text, SafeAreaView, View, ImageBackground, TouchableOpacity } from "react-native"
+import { Text, SafeAreaView, View, ImageBackground, TouchableOpacity, ActivityIndicator } from "react-native"
 import { useRecoilValue } from "recoil"
-import { originImageStoryState } from "../store/atom"
+import { originImageStoryState, uploadStoryState } from "../store/atom"
 import { AntDesign } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { StoryViewStackParamList } from "~/src/view/type"
 import ReactNativeModal from "react-native-modal"
 import React from "react"
+import uploadImageStoryAction from "../store/hook"
 
 const UploadStoryStack: React.FC = () => {
   const { data } = useRecoilValue(originImageStoryState)
   const navigation = useNavigation<StackNavigationProp<StoryViewStackParamList, "UploadStoryStack">>()
   const [modal, setModal] = React.useState<boolean>(false)
+  const { state } = useRecoilValue(uploadStoryState)
+  const { onUploadStory } = uploadImageStoryAction.useUploadStory()
+  console.log(data)
+
   if (!data) return
   return (
     <>
@@ -41,8 +46,15 @@ const UploadStoryStack: React.FC = () => {
                 </View>
                 <View className="grow"></View>
                 <View className="w-full p-4">
-                  <TouchableOpacity className="flex w-full items-center justify-center rounded-xl bg-sky-600 py-2">
-                    <Text className="text-base font-bold text-white">Share</Text>
+                  <TouchableOpacity
+                    onPress={() => onUploadStory()}
+                    className="flex w-full items-center justify-center rounded-xl bg-sky-600 py-2"
+                  >
+                    {state === "loading" ? (
+                      <ActivityIndicator size={24} color={"white"} />
+                    ) : (
+                      <Text className="text-base font-bold text-white">Share</Text>
+                    )}
                   </TouchableOpacity>
                 </View>
               </View>

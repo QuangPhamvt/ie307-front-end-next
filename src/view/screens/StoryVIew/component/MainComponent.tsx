@@ -14,8 +14,8 @@ const ItemImageComponent: React.FC<{ id: string; uri: string }> = ({ id, uri }) 
   return (
     <TouchableOpacity
       onPress={() => {
-        navigator.navigate("UploadStoryStack")
         setOriginImage({ data: { id, uri } })
+        navigator.navigate("UploadStoryStack")
       }}
       className="w-1/3 border-[0.5px] border-black bg-white"
     >
