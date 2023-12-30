@@ -19,6 +19,9 @@ export const PATH = {
   POST_FOLLOWING: "follow/following",
   POST_UN_FOLLOWING: "follow/un-following",
 
+  GET_LIST_COMMENT: "comment/origin",
+  POST_COMMENT: "comment/",
+
   ORIGIN_USER: "user/search",
   GET_ME: "user",
   UPLOAD_AVATAR: "user/avatar",

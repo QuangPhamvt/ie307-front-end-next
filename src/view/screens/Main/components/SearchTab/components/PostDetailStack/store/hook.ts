@@ -1,8 +1,17 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 import { postApi } from "~/src/api/postApi"
-import { getOriginListPostState, postLoveState } from "./atom"
+import {
+  commentFormState,
+  getListCommentState,
+  getOriginListPostState,
+  listCommentState,
+  postCommentState,
+  postLoveState,
+} from "./atom"
 import { userState } from "~/src/store/atom"
 import { userApi } from "~/src/api"
+import { commentApi } from "~/src/api/commentApi"
+import { Alert } from "react-native"
 
 const useGetOriginListPost = () => {
   const setOrigin = useSetRecoilState(getOriginListPostState)
@@ -55,8 +64,96 @@ const usePostLove = () => {
   }
   return { onPostLove }
 }
+const useGetListComment = () => {
+  const setGetList = useSetRecoilState(getListCommentState)
+  const setListComment = useSetRecoilState(listCommentState)
+  const onGetListComment = async (post_id: string) => {
+    try {
+      setGetList({ state: "loading", message: null })
+      const {
+        data: { data, message },
+      } = await commentApi.getListComment({ post_id })
+      setListComment({
+        state: "hasValue",
+        data: data,
+      })
+      setGetList({ state: "hasValue", message: null })
+    } catch (error) {
+      setGetList({ state: "hasError", message: null })
+    }
+  }
+  return { onGetListComment }
+}
+const usePostComment = () => {
+  const comment = useRecoilValue(commentFormState)
+  const user = useRecoilValue(userState)
+  const setPostComment = useSetRecoilState(postCommentState)
+  const setListComment = useSetRecoilState(listCommentState)
+  const resetCommentForm = useResetRecoilState(commentFormState)
+  const alert = (message: string) =>
+    Alert.alert(message, undefined, [
+      {
+        text: "Oke",
+      },
+    ])
+  const onPostComment = async (post_id: string) => {
+    try {
+      if (!comment) return { data: { message: "comment is empty" } }
+      setPostComment("loading")
+      const {
+        data: { message },
+      } = await commentApi.postComment({ post_id, comment })
+      setPostComment("hasValue")
+      resetCommentForm()
+      setListComment((preState) => {
+        if (preState.data.length > 0)
+          return {
+            ...preState,
+            data: [
+              {
+                comment: {
+                  id: Date.now().toString(),
+                  context: comment || " ",
+                  create_at: Date.now().toString(),
+                },
+                author: {
+                  id: user.contents?.user.user_id || "",
+                  avatar: user.contents?.user.avatar || null,
+                  username: user.contents?.user.username || "",
+                },
+              },
+              ...preState.data,
+            ],
+          }
+        return {
+          ...preState,
+          data: [
+            {
+              comment: {
+                id: Date.now().toString(),
+                context: comment || " ",
+                create_at: Date.now().toString(),
+              },
+              author: {
+                id: user.contents?.user.user_id || "",
+                avatar: user.contents?.user.avatar || null,
+                username: user.contents?.user.username || "",
+              },
+            },
+          ],
+        }
+      })
+    } catch (error: any) {
+      setPostComment("hasError")
+      alert(error.data.message)
+    }
+  }
+  return { onPostComment }
+}
 const PostDetailAction = {
   useGetOriginListPost,
   usePostLove,
+  useGetListComment,
+  usePostComment,
 }
 export default PostDetailAction
