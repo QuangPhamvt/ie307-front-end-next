@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native"
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs"
 import { MainBottomTabParamList } from "~/src/view/type"
 import ImageHoc from "~/src/view/components/ImageHOC"
+import { postIdToGetListCommentState } from "../../SearchTab/components/PostDetailStack/store/atom"
 
 interface IPostComponent {
   id: string
@@ -27,6 +28,7 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
   const { email, create_at, avatar, images, loves, id, author_id } = props
   const navigation = useNavigation<BottomTabNavigationProp<MainBottomTabParamList, "HomeView">>()
   const setShowCommentModal = useSetRecoilState(showCommentModalState)
+  const setPostIdToGetListComment = useSetRecoilState(postIdToGetListCommentState)
   const [amountLoves, setAmountLoves] = React.useState<number>(loves)
   const [imgActive, setImgActive] = React.useState<number>(0)
   const { contents } = useRecoilValue(userState)
@@ -44,9 +46,9 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
   }
   return (
     <View className="relative flex w-full pt-2">
-      <View className="flex flex-row items-center p-2 space-x-2">
-        <View className="h-8 bg-gray-600 rounded-full aspect-square">
-          {avatar && <Image className="w-full h-full rounded-full" source={{ uri: avatar }} />}
+      <View className="flex flex-row items-center space-x-2 p-2">
+        <View className="aspect-square h-8 rounded-full bg-gray-600">
+          {avatar && <Image className="h-full w-full rounded-full" source={{ uri: avatar }} />}
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -64,15 +66,15 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
         scrollEventThrottle={400}
         showsHorizontalScrollIndicator={false}
         horizontal
-        className="w-full aspect-square"
+        className="aspect-square w-full"
       >
         {images.map((item, index) => (
-          <View key={index} className="h-full aspect-square bg-slate-200">
+          <View key={index} className="aspect-square h-full bg-slate-200">
             <ImageHoc uri={item} />
           </View>
         ))}
       </ScrollView>
-      <View className="flex flex-row items-start p-2 space-x-4">
+      <View className="flex flex-row items-start space-x-4 p-2">
         <TouchableOpacity
           onPress={() => {
             handleDoubleTap()
@@ -87,20 +89,21 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
         <TouchableOpacity
           onPress={() => {
             setShowCommentModal({ isOpen: true })
+            setPostIdToGetListComment(id)
           }}
         >
           <Fontisto name="comment" size={26} />
         </TouchableOpacity>
       </View>
-      <View className="flex px-2 mt-1 space-y-1">
-        <Text className="font-bold">{loves} likes</Text>
+      <View className="mt-1 flex space-y-1 px-2">
+        <Text className="font-bold">{amountLoves} likes</Text>
         <Text>
           <Text className="font-bold">quangquang___</Text> To day is lucky day
         </Text>
         <Text className="text-xs">{dayjs(create_at).format("MMMM DD, YYYY")}</Text>
       </View>
       {images.length > 1 && (
-        <View className="absolute flex items-center justify-center right-4 top-16">
+        <View className="absolute right-4 top-16 flex items-center justify-center">
           <View className="flex w-8 items-center justify-center rounded-full bg-zinc-600 py-[0.5px]">
             <Text className="text-xs text-white">
               {imgActive + 1}/{images.length}
@@ -114,7 +117,7 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
 const ListPostComponent: React.FC = () => {
   const post = useRecoilValue(getPostListMainState)
   return (
-    <View className="flex flex-col w-full">
+    <View className="flex w-full flex-col">
       {post.data.map((item) => {
         return (
           <PostComponent

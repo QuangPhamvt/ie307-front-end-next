@@ -14,6 +14,38 @@ export const postLoveState = atom<{ state: TState; message: string | null }>({
     message: null,
   },
 })
+export const listCommentState = atom<{
+  state: TState
+  data: Array<{
+    comment: {
+      id: string
+      context: string
+      create_at: string
+    }
+    author: {
+      id: string
+      username: string
+      avatar: string | null
+    }
+  }>
+}>({
+  key: "listCommentStateAtom",
+  default: {
+    state: "idle",
+    data: [],
+  },
+})
+export const postIdToGetListCommentState = atom<string | null>({
+  key: "postIdToGetListCommentStateAtom",
+  default: null,
+})
+export const getListCommentState = atom<{ state: TState; message: string | null }>({
+  key: "getListCommentStateAtom",
+  default: {
+    state: "idle",
+    message: null,
+  },
+})
 export const getOriginListPostState = atom<TGetOriginListPostState>({
   key: "getOriginListPostStateAtom",
   default: {
@@ -21,4 +53,11 @@ export const getOriginListPostState = atom<TGetOriginListPostState>({
     message: null,
     data: [],
   },
+})
+export const commentFormState = atom<string | null>({
+  key: "commentFormStateAtom",
+  default: null,
+})
+export const postCommentState = atom<TState>({
+  key: "postCommentStateAtom",
 })
