@@ -1,10 +1,12 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 import { SignUpStackParamList } from "~/src/view/type"
-import EmailStackComponent from "./components/EmailStackComponent"
-import ConfirmStackComponent from "./components/ConfirmStackComponent"
-import CreatePasswordStackComponent from "./components/CreatePasswordStackComponent"
-import SaveLoginStackComponent from "./components/SaveLoginComponent"
+import {
+  EmailStackComponent,
+  ConfirmStackComponent,
+  CreatePasswordStackComponent,
+  SaveLoginStackComponent,
+} from "./components"
 
 const Stack = createStackNavigator<SignUpStackParamList>()
 const SignUpStack: React.FC = () => {

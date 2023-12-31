@@ -55,7 +55,6 @@ const emailAuthAction = () => {
       setSentEmailVerify({ state: "hasValue", message: data.message })
       alert(data.message)
     } catch (error: any) {
-      console.log(error.data)
       setSentEmailVerify({ state: "hasError", message: error.data.message })
       alert(error.data.message)
     }

@@ -7,21 +7,28 @@ import { Feather } from "@expo/vector-icons"
 
 const SendChangePasswordStack: React.FC = () => {
   const [isHidePassword, setIsHidePassword] = React.useState<boolean | null>(null)
+  const [isPressInConfirmField, setIsPressInConfirmField] = React.useState<boolean>(false)
   const [form, setForm] = useRecoilState(sendChangePasswordFormState)
   const { state, message } = useRecoilValue(sendChangePasswordState)
   const { onChangePassword } = ChangePasswordAction.useSendChangePassword()
   return (
-    <View className="flex h-full bg-[#F7F7F7] px-2">
-      <View className="flex space-y-4 grow ">
+    <View className="flex h-full bg-[#F7F7F7] px-3">
+      <View className="flex grow space-y-4 ">
         <Text className="text-base font-medium text-gray-700">
           Change a password with at least 6 letters or number. It should be something others can't guess
         </Text>
-        <View className={`flex flex-row justify-between rounded-lg border-[1px] border-solid p-4`}>
+        <View
+          className={`flex flex-row justify-between rounded-lg border-[1px] border-solid p-4 ${
+            isPressInConfirmField ? "border-gray-600" : "border-gray-400"
+          }`}
+        >
           <TextInput
             placeholder="Please enter your password"
-            className="w-4/5"
+            className="grow"
             onTouchStart={() => setIsHidePassword(true)}
             secureTextEntry={isHidePassword ? true : false}
+            onFocus={() => setIsPressInConfirmField(true)}
+            onBlur={() => setIsPressInConfirmField(false)}
             value={form.password}
             onChangeText={(password) => setForm((preState) => ({ ...preState, password }))}
           />
@@ -39,15 +46,7 @@ const SendChangePasswordStack: React.FC = () => {
           ) : (
             <Text className="text-lg font-bold text-white">Change Password</Text>
           )}
-          {/* {state === "idle" && <Text className="text-lg font-bold text-white">Sent email to verify</Text>}
-          {(state === "hasValue" || state === "hasError") && <Text className="text-lg font-bold text-white">Next</Text>} */}
         </TouchableOpacity>
-        {/* <TouchableOpacity className="flex w-full items-center justify-center rounded-full border-[1px] border-solid border-gray-500 bg-transparent p-3">:18
-        <Text className="text-lg font-bold text-gray-500">I didn't get the code</Text>
-      </TouchableOpacity> */}
-      </View>
-      <View className="flex items-center justify-center py-4">
-        <Text className="text-xs font-bold text-[#3876BF]">Already have an account?</Text>
       </View>
     </View>
   )

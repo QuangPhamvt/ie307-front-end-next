@@ -1,6 +1,6 @@
-import { AntDesign, Fontisto, Ionicons } from "@expo/vector-icons"
+import { AntDesign, Fontisto, Ionicons, SimpleLineIcons } from "@expo/vector-icons"
 import React from "react"
-import { View, Text, TouchableOpacity, Image, ScrollView, NativeScrollEvent } from "react-native"
+import { View, Text, TouchableOpacity, Image, ScrollView, NativeScrollEvent, ActivityIndicator } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { getPostListMainState, showCommentModalState } from "../store/atom"
 import dayjs from "dayjs"
@@ -117,7 +117,18 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
 const ListPostComponent: React.FC = () => {
   const post = useRecoilValue(getPostListMainState)
   return (
-    <View className="flex w-full flex-col">
+    <View className="flex w-full flex-col ">
+      {post.data.length === 0 && post.state !== "loading" && (
+        <View className="flex w-full items-center justify-center space-y-2 px-2 pt-4">
+          <SimpleLineIcons name="check" size={42} />
+          <Text className="text-center">You don't have anyone following to see new post. Please follow somebody</Text>
+        </View>
+      )}
+      {post.state === "loading" && (
+        <View className="flex w-full items-center justify-center space-y-2 px-2 pt-4">
+          <ActivityIndicator size={42} />
+        </View>
+      )}
       {post.data.map((item) => {
         return (
           <PostComponent

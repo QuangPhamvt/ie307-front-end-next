@@ -10,8 +10,7 @@ const UsernameEdit: React.FC = () => {
   if (!contents?.user) return
   return (
     <View className="flex w-full">
-      <View className="flex w-full space-y-2 border-b-[1px] border-gray-400 px-4 pb-3">
-        <Text className="text-lg text-gray-400">Username</Text>
+      <View className="flex w-full space-y-2 border-b-[1px] border-gray-400 px-4 py-3">
         <TextInput
           onChangeText={(text) => upload(text)}
           className=""
@@ -21,7 +20,9 @@ const UsernameEdit: React.FC = () => {
       </View>
       <View className="px-4 pt-4">
         <Text className="text-gray-500">
-          In most cases, you'll be able to change your username back to {contents.user.username} for another days.
+          In most cases, you'll be able to change your username back to
+          <Text className="font-semibold text-black"> {contents.user.username} </Text>
+          for another days.
         </Text>
       </View>
     </View>

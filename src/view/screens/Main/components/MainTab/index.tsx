@@ -12,7 +12,7 @@ const MainTab: React.FC = () => {
   const user = useRecoilValue(userState)
   React.useEffect(() => {
     onGetOriginListPost()
-  }, [user.state])
+  }, [user.contents?.user.follows])
   return (
     <ScrollView showsVerticalScrollIndicator={false} className="flex h-full bg-white">
       <HeaderComponent />

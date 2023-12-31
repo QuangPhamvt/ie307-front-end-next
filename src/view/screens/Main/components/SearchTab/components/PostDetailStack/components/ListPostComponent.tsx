@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, NativeScrollEvent, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { NativeScrollEvent, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { AntDesign, Fontisto } from "@expo/vector-icons"
 import CommentModalComponent from "./CommentComponent"
@@ -54,7 +54,7 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
     }
   }
   return (
-    <View className="flex w-full border-b-[1px] border-gray-400 pb-2">
+    <View className="flex w-full border-b-[0.5px] border-gray-300 pb-2">
       <View className="flex flex-row items-center space-x-2 p-2">
         {avatar ? (
           <TouchableOpacity
@@ -71,7 +71,7 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
           >
             <View
               className={`aspect-square h-8 rounded-full  ${
-                stories.length > 0 && "border-[2px] border-pink-500/60 bg-gray-500"
+                stories.length > 0 && "border-[2px] border-[#FFDFDF] bg-gray-500"
               }`}
             >
               <ImageHoc uri={avatar} isCircle />
@@ -88,15 +88,19 @@ const ItemPostComponent: React.FC<IItemPostComponent> = (props) => {
           >
             <Text className="font-bold">{email?.split("@")[0]}</Text>
           </TouchableOpacity>
-          {contents?.user?.follows?.following_id &&
-          contents.user.follows.following_id.some((item) => item == author_id) ? (
-            <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
-              <Text className="font-medium text-white">Following</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
-              <Text className="font-medium text-white">Follow</Text>
-            </TouchableOpacity>
+          {contents?.user.user_id !== author_id && (
+            <>
+              {contents?.user?.follows?.following_id &&
+              contents.user.follows.following_id.some((item) => item == author_id) ? (
+                <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
+                  <Text className="font-medium text-white">Following</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity className="rounded-lg bg-gray-400 px-4 py-1">
+                  <Text className="font-medium text-white">Follow</Text>
+                </TouchableOpacity>
+              )}
+            </>
           )}
         </View>
       </View>

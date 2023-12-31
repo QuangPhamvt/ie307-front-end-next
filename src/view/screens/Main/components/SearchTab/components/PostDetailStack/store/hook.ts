@@ -98,7 +98,7 @@ const usePostComment = () => {
     ])
   const onPostComment = async (post_id: string) => {
     try {
-      if (!comment) return { data: { message: "comment is empty" } }
+      if (!comment) throw { data: { message: "comment is empty" } }
       setPostComment("loading")
       const {
         data: { message },

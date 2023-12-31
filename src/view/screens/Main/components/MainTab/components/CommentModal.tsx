@@ -1,9 +1,9 @@
 import React from "react"
-import { KeyboardAvoidingView, TextInput, Text, View, ScrollView } from "react-native"
+import { KeyboardAvoidingView, TextInput, Text, View, ScrollView, TouchableOpacity } from "react-native"
 import Modal from "react-native-modal"
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil"
 import { showCommentModalState } from "../store/atom"
-import { AntDesign } from "@expo/vector-icons"
+import { AntDesign, Ionicons } from "@expo/vector-icons"
 import ImageHoc from "~/src/view/components/ImageHOC"
 import {
   commentFormState,
@@ -12,6 +12,7 @@ import {
   postIdToGetListCommentState,
 } from "../../SearchTab/components/PostDetailStack/store/atom"
 import PostDetailAction from "../../SearchTab/components/PostDetailStack/store/hook"
+import dayjs from "dayjs"
 interface IItemCommentComponent {
   id: string
   username: string
@@ -27,8 +28,9 @@ const ItemCommentComponent: React.FC<IItemCommentComponent> = (props) => {
         {avatar && <ImageHoc uri={avatar} isCircle />}
       </View>
       <View className="flex grow">
-        <Text className="text-xs">{username}</Text>
-        <Text className="text-xs">{context}</Text>
+        <Text className="text-sm">{username}</Text>
+        <Text className="text-sm">{context}</Text>
+        <Text className="text-xs">{dayjs(create_at).format("h:mm A, DD MMM, YYYY")}</Text>
       </View>
       <View className="flex items-center justify-center space-y-2">
         <AntDesign name="hearto" />
@@ -94,8 +96,21 @@ const CommentModalComponent: React.FC = () => {
             </ScrollView>
             <View className="flex w-full flex-row space-x-2 border-t-[1px] border-gray-400 px-2 py-2">
               <View className="aspect-square h-10 rounded-full bg-slate-300" />
-              <View className="flex grow items-center justify-center rounded-full  border-[1px] border-gray-400 p-2">
-                <TextInput className="w-full" placeholder="Add a comment for ..." />
+              <View className="flex grow flex-row items-center justify-center rounded-full  border-[1px] border-gray-400 p-2">
+                <TextInput
+                  value={comment || ""}
+                  onChangeText={(text) => setComment(text)}
+                  className="grow"
+                  placeholder="Add a comment for ..."
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    onPostComment(post_id || "")
+                    setComment("")
+                  }}
+                >
+                  <Ionicons name="send-outline" size={24} />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
