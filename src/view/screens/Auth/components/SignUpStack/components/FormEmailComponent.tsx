@@ -1,19 +1,19 @@
-import { useNavigation } from "@react-navigation/native"
 import React from "react"
-import { StackNavigationProp } from "@react-navigation/stack"
 import { View, Text, TouchableOpacity } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 import { TextInput } from "react-native-gesture-handler"
+import { StackNavigationProp } from "@react-navigation/stack"
 import { useRecoilState } from "recoil"
 import { SignUpStackParamList } from "~/src/view/type"
 import { signUpFormState } from "../store/atom"
-import authAction from "../../../store/authAction"
+import authAction from "~/src/view/screens/Auth/store/authAction"
 const FormEmailComponent: React.FC = () => {
-  const [isPressInEmailField, setIsPressInEmailField] = React.useState<boolean>(false)
   const navigation = useNavigation<StackNavigationProp<SignUpStackParamList, "EmailStack">>()
+  const [isPressInEmailField, setIsPressInEmailField] = React.useState<boolean>(false)
   const [getSignUpForm, setSignUpForm] = useRecoilState(signUpFormState)
   const { onSentVerifyEmail } = authAction.emailAuthAction()
   return (
-    <View className="flex space-y-4 grow ">
+    <View className="flex grow space-y-4 ">
       <Text className="text-2xl font-bold">What's your email? </Text>
       <Text className="font-medium text-gray-700">
         Enter the email where you can be contacted. No one will see this on your profile

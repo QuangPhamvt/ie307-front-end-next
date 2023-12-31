@@ -9,7 +9,7 @@ import FormConfirmComponent from "./FormConfirmComponent"
 const ConfirmStackComponent: React.FC = () => {
   const navigator = useNavigation<StackNavigationProp<SignUpStackParamList, "ConfirmStack">>()
   return (
-    <View className="flex h-full bg-[#F7F7F7] px-2">
+    <View className="flex h-full bg-[#F7F7F7] px-3">
       <View className="w-full py-2">
         <AntDesign name="left" size={24} onPress={() => navigator.goBack()} />
       </View>

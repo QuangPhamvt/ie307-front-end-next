@@ -6,7 +6,7 @@ import MainComponent from "./components/MainComponent"
 
 const ProfileTab: React.FC = () => {
   return (
-    <ScrollView alwaysBounceVertical={true} showsVerticalScrollIndicator={true} className="bg-white">
+    <ScrollView alwaysBounceVertical={true} showsVerticalScrollIndicator={false} className="bg-white">
       <View>
         <ModalSettingComponent />
         <HeaderComponent />

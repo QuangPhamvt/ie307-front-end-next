@@ -23,7 +23,6 @@ const UploadStoryStack: React.FC = () => {
       <SafeAreaView className="bg-transparent/10">
         <View className="h-full w-screen bg-gray-500">
           <ImageBackground source={{ uri: data.uri }} className="relative h-full w-full">
-            <Text>Upload story stack</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.goBack()

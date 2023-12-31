@@ -1,11 +1,11 @@
 import React from "react"
 import { View, ScrollView, TouchableOpacity, NativeScrollEvent, ActivityIndicator } from "react-native"
+import { useRecoilValue } from "recoil"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import ImageHoc from "~/src/view/components/ImageHOC"
 import { SearchViewStackParamList } from "~/src/view/type"
 import SearchStackAction from "../store/hook"
-import { useRecoilValue } from "recoil"
 import { listPostSearchState } from "../store/atom"
 
 type TInstaGrid = {
@@ -28,7 +28,7 @@ const Group1nthPost: React.FC<{ data: Array<{ id: string; images: Array<string> 
   const { data } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
   return (
-    <View className="flex flex-row flex-wrap w-screen h-auto">
+    <View className="flex h-auto w-screen flex-row flex-wrap">
       {data.map((item) => {
         return (
           <TouchableOpacity
@@ -48,7 +48,7 @@ const Group5nthPost: React.FC<TGroup5nthPost> = (props) => {
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
 
   return (
-    <View className="flex flex-row flex-wrap w-screen h-auto">
+    <View className="flex h-auto w-screen flex-row flex-wrap">
       {direction === "right" && (
         <TouchableOpacity
           onPress={() => navigation.navigate("PostDetailStack", { post_id: data[3].id })}
@@ -98,7 +98,7 @@ const Group3nthPost: React.FC<TGroup3nthPost> = (props) => {
   const { data, direction } = props
   const navigation = useNavigation<StackNavigationProp<SearchViewStackParamList, "SearchStack">>()
   return (
-    <View className="flex flex-row flex-wrap w-full ">
+    <View className="flex w-full flex-row flex-wrap ">
       {direction === "right" && (
         <TouchableOpacity
           onPress={() => navigation.navigate("PostDetailStack", { post_id: data[2].id })}
@@ -137,7 +137,8 @@ const InstaGrid: React.FC<TInstaGrid> = ({ data, onEndReached, loading = false, 
   const { onGetListPost } = SearchStackAction.useGetListPost()
   const isCloseToBottom = (nativeEvent: NativeScrollEvent) => {
     const { layoutMeasurement, contentOffset, contentSize } = nativeEvent
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height + 20
+    if (contentOffset.y > 0) return layoutMeasurement.height + contentOffset.y >= contentSize.height + 20
+    return false
   }
   return (
     <ScrollView

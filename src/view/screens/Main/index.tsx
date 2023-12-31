@@ -1,11 +1,8 @@
 import React from "react"
 import { SafeAreaView, StatusBar } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { MainBottomTabParamList } from "../../type"
-import MainTab from "./components/MainTab"
-import NotificationTab from "./components/NotificationTab"
-import ProfileTab from "./components/ProfileTab"
-import SearchTab from "./components/SearchTab"
+import { MainBottomTabParamList } from "~/src/view/type"
+import { MainTab, NotificationTab, ProfileTab, SearchTab, UploadTab } from "./components"
 import {
   HomeTabBarIconComponent,
   NotificationTabBarIconComponent,
@@ -14,8 +11,6 @@ import {
   UploadTabBarIconComponent,
 } from "./components/TabBarIcon"
 import HeaderMainTabComponent from "./components/HeaderMainTabComponent"
-import UploadScreen from "../Upload"
-import UploadTab from "./components/UploadTab"
 
 const BottomTab = createBottomTabNavigator<MainBottomTabParamList>()
 const MainView: React.FC = () => {

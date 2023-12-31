@@ -42,9 +42,9 @@ const onRequest = async (config: any) => {
           if (Exp_rt && Exp_rt < (Date.now() + 1) / 1000) {
             await LocalStorage.removeAccessTokenSecureStore()
             await LocalStorage.removeRefreshTokenSecureStore()
+          } else {
+            config.headers["Authorization"] = await getRefreshToken(accessToken)
           }
-        } else {
-          config.headers["Authorization"] = await getRefreshToken(accessToken)
         }
       }
     }

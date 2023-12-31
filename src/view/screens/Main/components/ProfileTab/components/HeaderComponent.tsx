@@ -12,7 +12,6 @@ import ImageHoc from "~/src/view/components/ImageHOC"
 const HeaderHeaderComponent: React.FC = () => {
   const setShowModalSetting = useSetRecoilState(showModalSettingState)
   const { contents } = useRecoilValue(userState)
-  console.log(contents?.stories)
 
   return (
     <View className="flex h-10 flex-row items-center justify-between ">
@@ -31,18 +30,20 @@ const MainHeaderComponent: React.FC = () => {
       <View className="flex space-y-2">
         <View className="relative aspect-square h-20 rounded-full border-[0.5px] border-zinc-400">
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("NewStoryView", {
-                user_id: contents?.user.user_id || "",
-                avatar: contents?.user.avatar || null,
-                email: contents?.user.email || "",
-                image: contents?.stories[0].image,
-                create_at: contents?.stories[0].create_at,
-              })
-            }
+            onPress={() => {
+              if (contents?.stories[0]) {
+                navigation.navigate("NewStoryView", {
+                  user_id: contents?.user.user_id || "",
+                  avatar: contents?.user.avatar || null,
+                  email: contents?.user.email || "",
+                  image: contents?.stories[0].image,
+                  create_at: contents?.stories[0].create_at,
+                })
+              }
+            }}
             className={
               contents?.stories && contents.stories.length > 0
-                ? "rounded-full border-4 border-solid border-pink-500/60"
+                ? "rounded-full border-4 border-solid border-[#FFDFDF]"
                 : ""
             }
           >

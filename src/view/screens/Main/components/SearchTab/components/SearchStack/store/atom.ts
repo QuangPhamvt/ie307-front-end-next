@@ -11,3 +11,7 @@ export const listPostSearchState = atom<TListPostSearchState>({
     data: [],
   },
 })
+export const openSearchState = atom<boolean>({
+  key: "openSearchStateAtom",
+  default: false,
+})

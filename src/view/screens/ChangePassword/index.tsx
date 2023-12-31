@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack"
-import { ChangePasswordStackParamList } from "../../type"
+import { ChangePasswordStackParamList } from "~/src/view/type"
 import SendEmailChangePasswordStack from "./components/SendEmailChangePasswordStack"
 import SendChangePasswordStack from "./components/SendChangePasswordStack"
 const Stack = createStackNavigator<ChangePasswordStackParamList>()

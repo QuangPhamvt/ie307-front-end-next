@@ -9,9 +9,10 @@ import {
   postIdToGetListCommentState,
   showCommentPostDetailState,
 } from "../store/atom"
-import { AntDesign, Ionicons } from "@expo/vector-icons"
+import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons"
 import PostDetailAction from "../store/hook"
 import ImageHoc from "~/src/view/components/ImageHOC"
+import dayjs from "dayjs"
 interface IItemCommentComponent {
   id: string
   username: string
@@ -24,11 +25,12 @@ const ItemCommentComponent: React.FC<IItemCommentComponent> = (props) => {
   return (
     <View className="mt-8 flex w-full flex-row items-center space-x-2">
       <View className="aspect-square w-10 self-start rounded-full file:bg-gray-400">
-        {avatar && <ImageHoc uri={avatar} isCircle />}
+        {avatar ? <ImageHoc uri={avatar} isCircle /> : <FontAwesome name="user-circle" size={40} color={"gray"} />}
       </View>
       <View className="flex grow">
-        <Text className="text-xs">{username}</Text>
-        <Text className="text-xs">{context}</Text>
+        <Text className="text-sm">{username}</Text>
+        <Text className="text-sm">{context}</Text>
+        <Text className="text-xs">{dayjs(create_at).format("h:mm A, DD MMM, YYYY")}</Text>
       </View>
       <View className="flex items-center justify-center space-y-2">
         <AntDesign name="hearto" />
@@ -106,6 +108,7 @@ const CommentModalComponent: React.FC = () => {
                 <TouchableOpacity
                   onPress={() => {
                     onPostComment(post_id || "")
+                    setComment("")
                   }}
                 >
                   <Ionicons name="send-outline" size={24} />

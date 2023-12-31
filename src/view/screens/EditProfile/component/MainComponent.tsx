@@ -13,10 +13,10 @@ const MainComponent = () => {
     <View className="flex w-full px-3">
       <View className="flex flex-row py-3">
         <View className="w-[30%] pb-1">
-          <Text className="border-b-[0.5px] text-lg">Name</Text>
+          <Text className="border-b-[0.5px] text-lg">Email</Text>
         </View>
         <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
-          <Text className="text-lg ">Pham Minh Quang</Text>
+          <Text className="text-lg ">{contents.user.email}</Text>
         </View>
       </View>
 
@@ -46,7 +46,7 @@ const MainComponent = () => {
             <Text className="border-b-[0.5px] text-lg">Bio</Text>
           </View>
           <View className="w-[70%] border-b-[0.5px] border-solid border-gray-300 pb-3">
-            <Text className="text-lg ">Hello this message</Text>
+            <Text className="text-lg ">{contents.user.bio ? contents.user.bio : "Not have bio"}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -68,7 +68,10 @@ const MainComponent = () => {
           <Text className="text-lg ">Gender</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")} className="flex w-full flex-row">
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ChangePassword", { screen: "SendEmailChangePassword" })}
+        className="flex w-full flex-row"
+      >
         <Text className="text-base font-semibold text-blue-500">Change Your Password</Text>
       </TouchableOpacity>
     </View>

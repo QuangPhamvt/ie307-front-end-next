@@ -6,12 +6,7 @@ import authAction from "../../Auth/store/authAction"
 
 const useSendEmailChangePassword = () => {
   const setEmail = useSetRecoilState(sendEmailChangePasswordState)
-  const alert = (message: string) =>
-    Alert.alert(message, undefined, [
-      {
-        text: "Oke",
-      },
-    ])
+  const alert = (message: string) => Alert.alert(message, undefined)
   const onSendEmailChangePassword = async () => {
     try {
       setEmail({ state: "loading", message: null })
@@ -49,7 +44,7 @@ const useSendChangePassword = () => {
       setChangePasswordState({ state: "hasValue", message: null })
     } catch (error: any) {
       alert(error.data.message, true)
-      setChangePasswordState({ state: "hasError", message: error.data.message })
+      setChangePasswordState({ state: "hasError", message: null })
     }
   }
   return { onChangePassword }

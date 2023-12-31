@@ -1,8 +1,7 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import { postApi } from "~/src/api/postApi"
 import { getPostListMainState } from "./atom"
 import { userState } from "~/src/store/atom"
-import { userApi } from "~/src/api"
 
 const useGetOriginListPost = () => {
   const setOrigin = useSetRecoilState(getPostListMainState)
