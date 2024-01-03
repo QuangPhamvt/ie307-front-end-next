@@ -97,9 +97,6 @@ const PostComponent: React.FC<IPostComponent> = (props) => {
       </View>
       <View className="mt-1 flex space-y-1 px-2">
         <Text className="font-bold">{amountLoves} likes</Text>
-        <Text>
-          <Text className="font-bold">quangquang___</Text> To day is lucky day
-        </Text>
         <Text className="text-xs">{dayjs(create_at).format("MMMM DD, YYYY")}</Text>
       </View>
       {images.length > 1 && (

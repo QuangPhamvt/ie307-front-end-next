@@ -47,4 +47,20 @@ export const userApi = {
     const url = PATH.UPLOAD_STORY
     return axiosClient.post(url, payload)
   },
+  postSearchUsername: <T extends { username: string }>(
+    payload: T,
+  ): Promise<
+    AxiosResponse<{
+      message: string
+      data: Array<{
+        id: string
+        avatar: string | null
+        username: string
+        bio: string
+      }>
+    }>
+  > => {
+    const url = PATH.SEARCH_USERNAME
+    return axiosClient.post(url, payload)
+  },
 }
