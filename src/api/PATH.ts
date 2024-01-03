@@ -6,6 +6,7 @@ export const PATH = {
   EMAIL_AUTH: "user/email-auth",
   SEND_EMAIL_CHANGE_PASSOWRD: "user/send-email-change-password",
   CHANGE_PASSWORD: "user/change-password",
+  SEARCH_USERNAME: "user/search-username",
 
   POST_ORIGIN: "post/origin",
   POST_LIST: "post/post-list",
