@@ -54,18 +54,94 @@
 
 ### 🌲 **Project tree**
 
-Files that will get removed after the execution of `SETUP_TEMPLATE.sh` are not shown! 🙈
-
-```text
+```
+📦src
+ ┣ 📂HOC
+ ┃ ┣ 📜DismissKeyBoardView.tsx
+ ┃ ┗ 📜index.tsx
+ ┣ 📂api
+ ┣ 📂components
+ ┣ 📂config
+ ┣ 📂store
+ ┃ ┗ 📜atom.ts
+ ┣ 📂utilities
+ ┃ ┣ 📂hook
+ ┃ ┣ 📂type
+ ┃ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂store
+ ┃ ┣ 📜constant.ts
+ ┃ ┣ 📜fnc.ts
+ ┃ ┣ 📜index.ts
+ ┃ ┗ 📜localStorage.ts
+ ┣ 📂view
+ ┃ ┣ 📂components
+ ┃ ┣ 📂screens
+ ┃ ┃ ┣ 📂Auth
+ ┃ ┃ ┣ 📂BioEdit
+ ┃ ┃ ┣ 📂ChangePassword
+ ┃ ┃ ┣ 📂EditProfile
+ ┃ ┃ ┣ 📂Main
+ ┃ ┃ ┣ 📂NewPost
+ ┃ ┃ ┣ 📂NewStoryView
+ ┃ ┃ ┣ 📂StoryVIew
+ ┃ ┃ ┣ 📂Upload
+ ┃ ┃ ┣ 📂UsernameEdit
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂store
+ ┃ ┗ 📜type.tsx
 ```
 
 ---
 
 ## 📝 **Additional notes**
 
-## 📸 **Screenshots**
-
 ## 📖 **Information**
+### Package
+```
+  "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
+    "@react-native-camera-roll/camera-roll": "^7.2.0",
+    "@react-native-seoul/masonry-list": "^1.4.2",
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "@react-navigation/stack": "^6.3.20",
+    "axios": "^1.6.2",
+    "buffer": "^6.0.3",
+    "dayjs": "^1.11.10",
+    "expo": "~49.0.15",
+    "expo-dev-client": "~2.4.12",
+    "expo-file-system": "^15.6.0",
+    "expo-image-picker": "^14.5.0",
+    "expo-linear-gradient": "^12.5.0",
+    "expo-media-library": "^15.6.0",
+    "expo-permissions": "^14.4.0",
+    "expo-secure-store": "^12.5.0",
+    "expo-status-bar": "^1.7.1",
+    "expo-updates": "~0.18.17",
+    "lodash": "^4.17.21",
+    "nativewind": "^2.0.11",
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-modal": "^13.0.1",
+    "react-native-safe-area-context": "^4.7.4",
+    "react-native-screens": "^3.29.0",
+    "recoil": "^0.7.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/lodash": "^4.14.202",
+    "@types/react": "~18.2.14",
+    "husky": "^8.0.0",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.9",
+    "tailwindcss": "3.3.2",
+    "typescript": "^5.1.3"
+  },
+```
 
 ## ❔ **How to push**
 
